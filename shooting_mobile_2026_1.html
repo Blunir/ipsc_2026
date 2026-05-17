@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ירי מעשי — עונה 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#080a0f;--s1:#101420;--s2:#161b2e;--s3:#1a2035;--bdr:#1e2840;--acc:#e8c84a;--grn:#3ecf80;--red:#f05252;--blu:#4a9ee8;--pur:#a78bfa;--txt:#dde4f0;--mut:#68748e;--mut2:#4a5568}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Heebo',sans-serif;min-height:100vh;padding-bottom:130px;overscroll-behavior:none}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(8,10,15,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);padding:11px 16px 9px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar h1{font-size:15px;font-weight:900;color:var(--acc);line-height:1.1;transition:color .3s}
+.topbar p{font-size:11px;color:var(--mut);margin-top:1px}
+.season-pill{background:rgba(232,200,74,.12);border:1px solid rgba(232,200,74,.3);color:var(--acc);font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+
+/* LAYOUT */
+.section{padding:16px}.section+.section{padding-top:0}
+.sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+/* HERO */
+.hero-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.hero-stat{background:var(--s2);border:1px solid var(--bdr);border-radius:12px;padding:12px 10px;text-align:center;position:relative;overflow:hidden}
+.hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.hero-stat.g::before{background:var(--grn)}.hero-stat.r::before{background:var(--red)}.hero-stat.b::before{background:var(--blu)}.hero-stat.y::before{background:var(--acc)}
+.hs-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;line-height:1}
+.hs-lbl{font-size:9px;color:var(--mut);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.hs-sub{font-size:9px;color:var(--mut2);margin-top:2px}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.kpi{background:var(--s2);border:1px solid var(--bdr);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.kpi.g::after{background:var(--grn)}.kpi.r::after{background:var(--red)}.kpi.b::after{background:var(--blu)}.kpi.y::after{background:var(--acc)}
+.kpi-emoji{font-size:18px;margin-bottom:2px}
+.kpi-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700}
+.kpi-lbl{font-size:10px;color:var(--mut);font-weight:600}.kpi-sub{font-size:9px;color:var(--mut2)}
+.delta{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:2px;width:fit-content}
+.delta.up{background:rgba(62,207,128,.15);color:var(--grn)}.delta.dn{background:rgba(240,82,82,.15);color:var(--red)}.delta.nu{background:rgba(104,116,142,.12);color:var(--mut)}
+
+/* TIMELINE */
+.tl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 16px 12px}
+.tl-scroll::-webkit-scrollbar{display:none}
+.tl{display:flex;position:relative;min-width:max-content;padding-top:14px;padding-bottom:4px}
+.tl-line{position:absolute;top:36px;right:44px;left:44px;height:2px;background:var(--bdr)}
+.tl-item{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:82px;cursor:pointer;position:relative;z-index:1}
+.tl-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;border:2px solid transparent;position:relative;transition:transform .15s;-webkit-user-select:none;user-select:none}
+.tl-item:active .tl-dot{transform:scale(.92)}
+.tl-dot.best{background:rgba(62,207,128,.2);border-color:var(--grn);color:var(--grn)}
+.tl-dot.good{background:rgba(232,200,74,.18);border-color:var(--acc);color:var(--acc)}
+.tl-dot.bad{background:rgba(74,158,232,.15);border-color:var(--blu);color:var(--blu)}
+.tl-dot.dq{background:rgba(240,82,82,.12);border-color:var(--red);color:var(--red);border-style:dashed}
+.tl-dot.has-st::before{content:'✉';position:absolute;top:-9px;right:-6px;font-size:10px}
+.tl-date{font-size:8px;color:var(--mut);font-family:'JetBrains Mono',monospace;text-align:center}
+.tl-name{font-size:9px;color:var(--txt);text-align:center;max-width:78px;line-height:1.3}
+.tl-rank{font-size:8px;font-weight:700}
+.tl-rank.r1{color:var(--grn)}.tl-rank.r25{color:var(--acc)}.tl-rank.rhi{color:var(--mut)}
+
+/* CHARTS */
+.chart-card{background:var(--s2);border:1px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:10px}
+.chart-ttl{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.chart-card canvas{max-height:180px}.chart-card.tall canvas{max-height:200px}
+
+/* COMP CARDS */
+.comp-list{display:flex;flex-direction:column;gap:8px}
+.comp-card{background:var(--s2);border:1px solid var(--bdr);border-radius:14px;overflow:hidden}
+.comp-head{display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .15s}
+.comp-head:active{background:rgba(255,255,255,.03)}
+.comp-head.open{background:rgba(232,200,74,.04);border-bottom:1px solid var(--bdr)}
+.ch-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut);min-width:52px;flex-shrink:0}
+.ch-info{flex:1;min-width:0}
+.ch-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch-score-row{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap}
+.ch-pct{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
+.badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
+.bg{background:rgba(62,207,128,.15);color:var(--grn)}.by{background:rgba(232,200,74,.15);color:var(--acc)}
+.bb{background:rgba(74,158,232,.15);color:var(--blu)}.bm{background:rgba(104,116,142,.12);color:var(--mut)}
+.br{background:rgba(240,82,82,.15);color:var(--red)}
+.ch-arrow{font-size:16px;color:var(--mut);transition:transform .25s;flex-shrink:0}
+.comp-head.open .ch-arrow{transform:rotate(90deg)}
+.comp-body{display:none;padding:12px}.comp-body.open{display:block}
+.comp-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.comp-stat{background:var(--s3);border-radius:8px;padding:10px;text-align:center}
+.cs-val{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;margin-bottom:3px}
+.cs-lbl{font-size:9px;color:var(--mut);font-weight:600}
+
+/* STAGES */
+.stages-scroll{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.stages-scroll::-webkit-scrollbar{display:none}
+.sc{background:var(--s3);border:1px solid var(--bdr);border-radius:10px;padding:10px;min-width:130px;flex-shrink:0}
+.sc-num{font-size:9px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.sc-factor{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;margin-bottom:4px}
+.sc-factor.hi{color:var(--grn)}.sc-factor.ok{color:var(--acc)}.sc-factor.lo{color:var(--red)}.sc-factor.na{color:var(--mut)}
+.sc-meta{font-size:9px;color:var(--mut);line-height:1.8;margin-bottom:5px}
+.sc-hits{display:flex;gap:3px;flex-wrap:wrap}
+.hit{font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px}
+.hit.A{background:rgba(62,207,128,.2);color:var(--grn)}.hit.C{background:rgba(232,200,74,.2);color:var(--acc)}
+.hit.D{background:rgba(240,82,82,.2);color:var(--red)}.hit.M{background:rgba(240,82,82,.4);color:#ff8080;border:1px solid var(--red)}
+.stages-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--mut);padding-top:10px;border-top:1px solid var(--bdr);margin-top:10px}
+.stages-summary b{color:var(--txt)}
+.fbars{margin-top:10px}
+.fbar-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:9px}
+.fbar-lbl{width:44px;color:var(--mut);font-weight:600;flex-shrink:0}
+.fbar-wrap{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.fbar-fill{height:100%;border-radius:3px}
+.fbar-val{width:48px;font-family:'JetBrains Mono',monospace;font-size:8px;text-align:left}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;border:1px solid var(--bdr);background:var(--s2)}
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:var(--s3);padding:9px 8px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);border-bottom:1px solid var(--bdr);white-space:nowrap}
+.comp-table td{padding:10px 8px;border-bottom:1px solid var(--bdr)}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr.dq-row td{opacity:.45}
+.bar-w{width:36px;height:4px;background:var(--s3);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:4px}
+.bar-f{height:100%;border-radius:2px}
+
+/* INSIGHTS */
+.ins-list{display:flex;flex-direction:column;gap:8px}
+.ins-card{background:var(--s2);border:1px solid var(--bdr);border-radius:14px;overflow:hidden}
+.ins-head{padding:12px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.ins-head:active{background:rgba(255,255,255,.03)}
+.ins-title{font-size:13px;font-weight:700}
+.ins-body{display:none;border-top:1px solid var(--bdr)}.ins-body.open{display:block}
+.ins-item{display:flex;gap:8px;font-size:12px;line-height:1.6;padding:10px 14px;border-bottom:1px solid var(--bdr)}
+.ins-item:last-child{border-bottom:none}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(8,10,15,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bdr)}
+.shooter-strip{
+  display:flex;
+  gap:8px;
+  padding:8px 12px 0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  scroll-padding:0 12px;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+.shooter-strip::-webkit-scrollbar{display:none}
+.s-pill{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:7px 12px;
+  border-radius:10px;
+  border:1.5px solid var(--bdr);
+  background:var(--s2);
+  cursor:pointer;
+  -webkit-user-select:none;
+  user-select:none;
+  font-family:'Heebo',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--mut);
+  transition:all .2s;
+  scroll-snap-align:start;
+  white-space:nowrap;
+}
+.s-pill:active{transform:scale(.95)}
+.s-pill.active{border-color:var(--acc);background:rgba(232,200,74,.12);color:var(--acc)}
+.s-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--mut);flex-shrink:0;transition:background .2s}
+.s-pill.active .dot{background:var(--acc);box-shadow:0 0 6px rgba(232,200,74,.5)}
+.section-nav{display:flex;justify-content:space-around;align-items:center;padding:4px 0 max(6px,env(safe-area-inset-bottom))}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;cursor:pointer;-webkit-user-select:none;user-select:none;border-radius:8px;transition:background .15s;border:none;background:none;color:var(--mut);font-family:'Heebo',sans-serif}
+.nav-btn:active{background:rgba(255,255,255,.06)}
+.nav-btn.active{color:var(--acc)}
+.nav-icon{font-size:18px}.nav-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+.page-section{scroll-margin-top:60px}
+/* AVATAR */
+.avatar-circle{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);flex-shrink:0;transition:border-color .2s}
+.s-pill.active .avatar-circle{border-color:var(--acc)}
+.profile-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2.5px solid var(--bdr);flex-shrink:0}
+.profile-header{display:flex;align-items:center;gap:12px;padding:14px 16px 0;margin-bottom:0}
+.profile-header-info h2{font-size:16px;font-weight:900;color:var(--acc)}
+.profile-header-info p{font-size:11px;color:var(--mut);margin-top:2px}
+
+.new-badge{background:rgba(232,200,74,.2);color:var(--acc);border:1px solid rgba(232,200,74,.4);font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px}
+.shooter-page{display:none}.shooter-page.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><h1 id="tb-name">🎯 ניר בלושטיין</h1><p id="tb-sub">IL|38308 · אופטיקס / סניור</p></div>
+  <div class="season-pill">2025–2026</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SHOOTER 1 — ניר בלושטיין
+     ══════════════════════════════════════ -->
+<div class="shooter-page active" id="page-nir">
+  <div class="profile-header"><img class="profile-avatar" src="data:image/jpeg;base64,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" alt="ניר"><div class="profile-header-info"><h2>ניר בלושטיין</h2><p>IL|38308 · אופטיקס / סניור</p></div></div>
+
+  <div class="section page-section" id="nir-summary">
+    <div class="hero-row">
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">11</div><div class="hs-lbl">תחרויות</div><div class="hs-sub">1 DQ</div></div>
+      <div class="hero-stat y"><div class="hs-val" style="color:var(--acc)">69.1%</div><div class="hs-lbl">ממוצע</div><div class="hs-sub">אופטיקס</div></div>
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">↑</div><div class="hs-lbl">מגמה</div><div class="hs-sub">עולה</div></div>
+    </div>
+    <div class="sec-label">מדדי מפתח</div>
+    <div class="kpi-grid">
+      <div class="kpi g"><div class="kpi-emoji">🏆</div><div class="kpi-val" style="color:var(--grn)">86.2%</div><div class="kpi-lbl">שיא אופטיקס</div><div class="kpi-sub">כוכב הצפון · 11/04</div><span class="delta up">↑ שיא עונה</span></div>
+      <div class="kpi b"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--blu)">91.0%</div><div class="kpi-lbl">ממוצע דיוק</div><div class="kpi-sub">טווח: 87%–96%</div><span class="delta nu">— יציב</span></div>
+      <div class="kpi y"><div class="kpi-emoji">⚡</div><div class="kpi-val" style="color:var(--acc)">86.5%</div><div class="kpi-lbl">ממוצע מהירות</div><div class="kpi-sub">טווח: 81%–91%</div><span class="delta up">↑ עלייה</span></div>
+      <div class="kpi g"><div class="kpi-emoji">📈</div><div class="kpi-val" style="color:var(--acc)">74.1%</div><div class="kpi-lbl">שיא כללי</div><div class="kpi-sub">הכדור הראשון 1</div><span class="delta nu">— שיא</span></div>
+      <div class="kpi r"><div class="kpi-emoji">📉</div><div class="kpi-val" style="color:var(--red)">54.2%</div><div class="kpi-lbl">שפל</div><div class="kpi-sub">ליגה 3 · 20/02</div><span class="delta dn">↓ נסיגה</span></div>
+      <div class="kpi r"><div class="kpi-emoji">🚫</div><div class="kpi-val" style="color:var(--red)">1</div><div class="kpi-lbl">DQ</div><div class="kpi-sub">ProGun · 14/02</div><span class="delta nu">— בודד</span></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="nir-timeline">
+    <div class="sec-label">ציר זמן</div>
+    <div class="tl-scroll"><div class="tl"><div class="tl-line"></div>
+      <div class="tl-item" onclick="toggleComp('nc0')"><div class="tl-dot good has-st">74.1%</div><div class="tl-date">13.12.25</div><div class="tl-name">אלון ליגה 2</div><div class="tl-rank r25">#4</div></div>
+      <div class="tl-item"><div class="tl-dot bad">58.6%</div><div class="tl-date">03.01.26</div><div class="tl-name">כוכב הצפון</div><div class="tl-rank r25">#4</div></div>
+      <div class="tl-item" onclick="toggleComp('nc2')"><div class="tl-dot bad has-st">65.7%</div><div class="tl-date">17.01.26</div><div class="tl-name">ליגה 2</div><div class="tl-rank rhi">#8</div></div>
+      <div class="tl-item" onclick="toggleComp('nc3')"><div class="tl-dot bad has-st">56.2%</div><div class="tl-date">30.01.26</div><div class="tl-name">אלון ליגה 3</div><div class="tl-rank rhi">#10</div></div>
+      <div class="tl-item" onclick="toggleComp('nc4')"><div class="tl-dot dq">DQ</div><div class="tl-date">14.02.26</div><div class="tl-name">ProGun</div><div class="tl-rank rhi" style="color:var(--red)">DQ</div></div>
+      <div class="tl-item" onclick="toggleComp('nc5')"><div class="tl-dot bad has-st">54.2%</div><div class="tl-date">20.02.26</div><div class="tl-name">ליגה 3</div><div class="tl-rank rhi">#9</div></div>
+      <div class="tl-item" onclick="toggleComp('nc6')"><div class="tl-dot best has-st">82.4%</div><div class="tl-date">27.02.26</div><div class="tl-name">הכדור 1 🥇</div><div class="tl-rank r1">#1</div></div>
+      <div class="tl-item" onclick="toggleComp('nc7')"><div class="tl-dot good has-st">67.1%</div><div class="tl-date">28.03.26</div><div class="tl-name">אלון ליגה 4</div><div class="tl-rank rhi">#7</div></div>
+      <div class="tl-item" onclick="toggleComp('nc8')"><div class="tl-dot best has-st">86.2%</div><div class="tl-date">11.04.26</div><div class="tl-name">כוכב 🥇</div><div class="tl-rank r1">#1</div></div>
+      <div class="tl-item" onclick="toggleComp('nc9')"><div class="tl-dot good has-st">67.0%</div><div class="tl-date">17.04.26</div><div class="tl-name">קלעי יהודה</div><div class="tl-rank r25">#4</div></div>
+      <div class="tl-item"><div class="tl-dot good">71.9%</div><div class="tl-date">01.05.26</div><div class="tl-name">הכדור 2</div><div class="tl-rank r25">#3</div></div>
+      <div class="tl-item" onclick="toggleComp('nc11')"><div class="tl-dot good has-st">76.3%</div><div class="tl-date">08.05.26</div><div class="tl-name">ליגה 4 ✨</div><div class="tl-rank rhi">#7</div></div>
+    </div></div>
+  </div>
+
+  <div class="section page-section" id="nir-charts">
+    <div class="sec-label">גרפים</div>
+    <div class="chart-card tall"><div class="chart-ttl">📊 אופטיקס לאורך העונה</div><canvas id="nir-cO"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">🎯 דיוק מול מהירות</div><canvas id="nir-cAS"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">🏅 מיקום קטגוריה סניור</div><canvas id="nir-cR"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">💰 ניקוד גולמי</div><canvas id="nir-cP"></canvas></div>
+  </div>
+
+  <div class="section page-section" id="nir-comps">
+    <div class="sec-label">פירוט תחרויות</div>
+    <div class="comp-list">
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc0')" id="h-nc0"><span class="ch-date">13.12.25</span><div class="ch-info"><div class="ch-name">אלון ליגת אקדח 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">74.1%</span><span class="badge by">#4 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc0"><div class="stages-scroll"><div class="sc"><div class="sc-num">Stage 1</div><div class="sc-factor ok">6.2397</div><div class="sc-meta">18 כד · 12.18 שנ׳<br>76 נק׳ · דניאל ברס</div><div class="sc-hits"><span class="hit A">A×16</span><span class="hit C">C×2</span><span class="hit D">D×1</span></div></div><div class="sc"><div class="sc-num">Stage 2</div><div class="sc-factor lo">5.1397</div><div class="sc-meta">22 כד · 17.90 שנ׳<br>92 נק׳ · מיכאל שלום</div><div class="sc-hits"><span class="hit A">A×14</span><span class="hit C">C×7</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" id="h-nc1"><span class="ch-date">03.01.26</span><div class="ch-info"><div class="ch-name">אזורית כוכב הצפון 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--blu)">58.6%</span><span class="badge bb">#4 סניור</span><span class="badge bm">אין מיילים</span></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc2')" id="h-nc2"><span class="ch-date">17.01.26</span><div class="ch-info"><div class="ch-name">תחרות ליגה מס׳ 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--blu)">65.7%</span><span class="badge bm">#8 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc2"><div class="stages-scroll"><div class="sc"><div class="sc-num">S1</div><div class="sc-factor ok">6.1266</div><div class="sc-meta">30 כד · 19.75 שנ׳</div><div class="sc-hits"><span class="hit A">A×27</span><span class="hit C">C×2</span><span class="hit M">M×1</span></div></div><div class="sc"><div class="sc-num">S2 🏆</div><div class="sc-factor hi">7.7708</div><div class="sc-meta">23 כד · 12.74 שנ׳</div><div class="sc-hits"><span class="hit A">A×20</span><span class="hit C">C×3</span></div></div><div class="sc"><div class="sc-num">S3</div><div class="sc-factor lo">5.9380</div><div class="sc-meta">15 כד · 11.62 שנ׳</div><div class="sc-hits"><span class="hit A">A×12</span><span class="hit C">C×3</span></div></div><div class="sc"><div class="sc-num">S4</div><div class="sc-factor lo">3.7468</div><div class="sc-meta">24 כד · 23.22 שנ׳</div><div class="sc-hits"><span class="hit A">A×19</span><span class="hit M">M×1</span></div></div><div class="sc"><div class="sc-num">S5</div><div class="sc-factor lo">5.4175</div><div class="sc-meta">17 כד · 15.69 שנ׳</div><div class="sc-hits"><span class="hit A">A×17</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc3')" id="h-nc3"><span class="ch-date">30.01.26</span><div class="ch-info"><div class="ch-name">אלון ליגת אקדח 3</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--blu)">56.2%</span><span class="badge bm">#10 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc3"><div class="stages-scroll"><div class="sc"><div class="sc-num">Stage 1 ⚠️</div><div class="sc-factor lo">2.5650</div><div class="sc-meta">18 כד · 29.63 שנ׳</div><div class="sc-hits"><span class="hit A">A×13</span><span class="hit C">C×3</span><span class="hit D">D×2</span></div></div><div class="sc"><div class="sc-num">Stage 2</div><div class="sc-factor ok">6.7894</div><div class="sc-meta">18 כד · 8.69 שנ׳</div><div class="sc-hits"><span class="hit A">A×11</span><span class="hit C">C×4</span><span class="hit M">M×1</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc4')" id="h-nc4"><span class="ch-date">14.02.26</span><div class="ch-info"><div class="ch-name">ProGun level 1</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--red)">DQ</span><span class="badge br">🚫 פסילה</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc4"><div style="background:rgba(240,82,82,.08);border:1px solid rgba(240,82,82,.25);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red)">🚫 פסילה לאחר Stage 1</div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc5')" id="h-nc5"><span class="ch-date">20.02.26</span><div class="ch-info"><div class="ch-name">תחרות ליגה מס׳ 3</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--red)">54.2%</span><span class="badge bm">#9 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc5"><div style="background:rgba(240,82,82,.08);border:1px solid rgba(240,82,82,.2);border-radius:8px;padding:8px;margin-bottom:8px;font-size:11px;color:#ff8080">⚠️ Stage 5: ענישה 9.5.6.7</div><div class="stages-scroll"><div class="sc"><div class="sc-num">S1</div><div class="sc-factor lo">2.7455</div><div class="sc-meta">12 כד · 18.94 שנ׳</div><div class="sc-hits"><span class="hit A">A×8</span><span class="hit C">C×4</span></div></div><div class="sc"><div class="sc-num">S2</div><div class="sc-factor ok">4.5007</div><div class="sc-meta">20 כד · 21.33 שנ׳</div><div class="sc-hits"><span class="hit A">A×18</span><span class="hit C">C×2</span></div></div><div class="sc"><div class="sc-num">S3</div><div class="sc-factor lo">3.5164</div><div class="sc-meta">15 כד · 20.76 שנ׳</div><div class="sc-hits"><span class="hit A">A×14</span><span class="hit C">C×1</span></div></div><div class="sc"><div class="sc-num">S4</div><div class="sc-factor ok">4.3821</div><div class="sc-meta">28 כד · 29.21 שנ׳</div><div class="sc-hits"><span class="hit A">A×22</span><span class="hit C">C×6</span></div></div><div class="sc"><div class="sc-num">S5 ⚠️</div><div class="sc-factor na">0.0000</div><div class="sc-meta">32 כד · ענישה×3</div><div class="sc-hits"><span class="hit M">M×3</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc6')" id="h-nc6"><span class="ch-date">27.02.26</span><div class="ch-info"><div class="ch-name">הכדור הראשון — 1 🥇</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">82.4%</span><span class="badge bg">#1 🏆</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc6"><div class="stages-scroll"><div class="sc"><div class="sc-num">Stage 2</div><div class="sc-factor ok">5.8197</div><div class="sc-meta">17 כד · 12.20 שנ׳<br>71 נק׳</div><div class="sc-hits"><span class="hit A">A×11</span><span class="hit C">C×5</span><span class="hit D">D×1</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc7')" id="h-nc7"><span class="ch-date">28.03.26</span><div class="ch-info"><div class="ch-name">אלון ליגת אקדח 4</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">67.1%</span><span class="badge bm">#7 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc7"><div class="stages-scroll"><div class="sc"><div class="sc-num">Stage 1</div><div class="sc-factor lo">4.5317</div><div class="sc-meta">17 כד · 16.55 שנ׳</div><div class="sc-hits"><span class="hit A">A×12</span><span class="hit C">C×5</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc8')" id="h-nc8"><span class="ch-date">11.04.26</span><div class="ch-info"><div class="ch-name">כוכב הצפון 6 🥇</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">86.2%</span><span class="badge bg">#1 🏆</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc8"><div class="stages-scroll"><div class="sc"><div class="sc-num">S1</div><div class="sc-factor ok">5.4331</div><div class="sc-meta">31 כד · 26.32 שנ׳</div><div class="sc-hits"><span class="hit A">A×25</span><span class="hit C">C×6</span></div></div><div class="sc"><div class="sc-num">S2</div><div class="sc-factor lo">4.0306</div><div class="sc-meta">12 כד · 14.39 שנ׳</div><div class="sc-hits"><span class="hit A">A×11</span><span class="hit C">C×1</span></div></div><div class="sc"><div class="sc-num">S3 🏆</div><div class="sc-factor ok">5.5411</div><div class="sc-meta">21 כד · 15.34 שנ׳</div><div class="sc-hits"><span class="hit A">A×12</span><span class="hit C">C×8</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('nc9')" id="h-nc9"><span class="ch-date">17.04.26</span><div class="ch-info"><div class="ch-name">קלעי ישראל יהודה 3</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">67.0%</span><span class="badge by">#4 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc9"><div class="stages-scroll"><div class="sc"><div class="sc-num">S1 🏆</div><div class="sc-factor ok">5.8089</div><div class="sc-meta">27 כד · 20.83 שנ׳</div><div class="sc-hits"><span class="hit A">A×21</span><span class="hit C">C×5</span></div></div><div class="sc"><div class="sc-num">S2</div><div class="sc-factor lo">3.7736</div><div class="sc-meta">22 כד · 22.26 שנ׳</div><div class="sc-hits"><span class="hit A">A×11</span><span class="hit C">C×9</span></div></div><div class="sc"><div class="sc-num">S3</div><div class="sc-factor lo">4.7843</div><div class="sc-meta">17 כד · 12.75 שנ׳</div><div class="sc-hits"><span class="hit A">A×10</span><span class="hit C">C×7</span></div></div></div></div></div>
+      <div class="comp-card"><div class="comp-head" id="h-nc10"><span class="ch-date">01.05.26</span><div class="ch-info"><div class="ch-name">הכדור הראשון — 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">71.9%</span><span class="badge by">#3 סניור</span><span class="badge bm">אין מיילים</span></div></div></div></div>
+      <div class="comp-card" style="border-color:rgba(232,200,74,.3)"><div class="comp-head" onclick="toggleComp('nc11')" id="h-nc11" style="background:rgba(232,200,74,.04)"><span class="ch-date" style="color:var(--acc)">08.05.26</span><div class="ch-info"><div class="ch-name" style="color:var(--acc)">ליגה 4 <span class="new-badge">עודכן</span></div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">76.3%</span><span class="badge bm">#7 סניור</span></div></div><span class="ch-arrow">›</span></div><div class="comp-body" id="nc11"><div style="background:rgba(232,200,74,.08);border:1px solid rgba(232,200,74,.2);border-radius:8px;padding:8px;margin-bottom:10px;font-size:11px;color:var(--acc)">📊 כללי: 61.7%</div><div class="stages-scroll"><div class="sc"><div class="sc-num">S1</div><div class="sc-factor hi">8.7413</div><div class="sc-meta">30 כד · 14.30 שנ׳</div><div class="sc-hits"><span class="hit A">A×24</span><span class="hit C">C×5</span></div></div><div class="sc"><div class="sc-num">S2 🏆</div><div class="sc-factor hi">9.1529</div><div class="sc-meta">20 כד · 10.27 שנ׳</div><div class="sc-hits"><span class="hit A">A×18</span><span class="hit C">C×1</span></div></div><div class="sc"><div class="sc-num">S3</div><div class="sc-factor ok">8.1127</div><div class="sc-meta">21 כד · 11.71 שנ׳</div><div class="sc-hits"><span class="hit A">A×16</span><span class="hit C">C×5</span></div></div><div class="sc"><div class="sc-num">S4</div><div class="sc-factor lo">6.6007</div><div class="sc-meta">21 כד · 9.09 שנ׳</div><div class="sc-hits"><span class="hit A">A×9</span><span class="hit C">C×7</span><span class="hit M">M×1</span></div></div><div class="sc"><div class="sc-num">S5</div><div class="sc-factor lo">6.9554</div><div class="sc-meta">18 כד · 7.62 שנ׳</div><div class="sc-hits"><span class="hit A">A×8</span><span class="hit C">C×7</span><span class="hit M">M×1</span></div></div></div><div class="fbars"><div class="fbar-row"><div class="fbar-lbl">S1</div><div class="fbar-wrap"><div class="fbar-fill" style="width:95%;background:var(--grn)"></div></div><div class="fbar-val" style="color:var(--grn)">8.74</div></div><div class="fbar-row"><div class="fbar-lbl">S2</div><div class="fbar-wrap"><div class="fbar-fill" style="width:100%;background:var(--grn)"></div></div><div class="fbar-val" style="color:var(--grn)">9.15🏆</div></div><div class="fbar-row"><div class="fbar-lbl">S3</div><div class="fbar-wrap"><div class="fbar-fill" style="width:89%;background:var(--acc)"></div></div><div class="fbar-val" style="color:var(--acc)">8.11</div></div><div class="fbar-row"><div class="fbar-lbl">S4</div><div class="fbar-wrap"><div class="fbar-fill" style="width:72%;background:var(--red)"></div></div><div class="fbar-val" style="color:var(--red)">6.60</div></div><div class="fbar-row"><div class="fbar-lbl">S5</div><div class="fbar-wrap"><div class="fbar-fill" style="width:76%;background:var(--red)"></div></div><div class="fbar-val" style="color:var(--red)">6.96</div></div></div></div></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="nir-insights">
+    <div class="sec-label">תובנות מעמיקות</div>
+    <div class="ins-list">
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni0')"><span style="font-size:18px">💪</span><span class="ins-title" style="color:var(--grn)">חוזקות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni0">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>דיוק יוצא דופן:</b> 91% ממוצע A-zone לאורך כל העונה — יציב ועקבי ב-11 תחרויות. פרמטר חוזק אמיתי.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>2 ניצחונות קטגוריה:</b> הכדור הראשון 1 + כוכב הצפון 6 — מוכיח שיכולת השיא קיימת.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>יכולת שיא גבוהה:</b> 86.2% אופטיקס בכוכב הצפון ו-82.4% בהכדור הראשון — מוכח שיש שם 80%+.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Stage 2 ליגה 4:</b> פקטור 9.15 — ביצוע עולמי. מוכיח שהמהירות הגבוהה קיימת כשהקצב נכון.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>חזרה חזקה מהנסיגה:</b> מ-54% בפברואר ל-86% באפריל — עמידות נפשית ויכולת תיקון עצמי.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni1')"><span style="font-size:18px">⚠️</span><span class="ins-title" style="color:var(--red)">חולשות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni1">
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>חוסר יציבות:</b> שונות של 10.4% — פער 32% בין השיא לשפל. מנגנון הפעלה לא עקבי בין תחרויות.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>Stage ארוכים בסוף תחרות:</b> S4–S5 בליגה 4 עם 2 Miss ו-D גבוה — עייפות מנטלית ב-Stage ה-4 ו-5.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>Transitions לאחר תנועה:</b> Stage 1 אלון 3 — 29.63 שניות. בעיה בפתיחת Stage כשצריך תנועה ארוכה.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>פקטור מהירות נמוך בליגות ארציות:</b> 6.6–6.9 לעומת 8.7–9.1 בתרגילים אחרים — חשש מהתחרות גדולה.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni2')"><span style="font-size:18px">📈</span><span class="ins-title" style="color:var(--acc)">מה לשפר</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni2">
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>מהירות Draw & First Shot:</b> פקטור ממוצע 7.9 — שיפור ב-0.5 שנייה בזמן מצייד יעלה לפקטור 8.5+.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Stage 4–5 בתחרויות ארוכות:</b> לתכנן Stage האחרונים עם גישת "שמור אנרגיה מנטלית" — לא להאיץ מעל יכולת.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>יציבות Stage לStage:</b> מטרה — כל Stage עם פקטור מעל 7.5. לא Stage אחד מצטיין ו-2 חלשים.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>אחוז A מול D:</b> להפחית D מ-8% ל-4% — שמור על הקצב אבל עם כניסה איכותית יותר לאיזור A.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni3')"><span style="font-size:18px">🔒</span><span class="ins-title" style="color:var(--blu)">מה להמשיך לחזק</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni3">
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>דיוק A-zone:</b> 91% הוא מדד עולמי — לא לשנות שום דבר בגישת הכיוון. רק להעלות קצב.</span></div>
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>תכנון Stage:</b> החוכמה בתכנון Stage בולטת — להמשיך להשקיע ב-walkthrough וניתוח זרימה.</span></div>
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>Reload תנועה:</b> Stage 2 ליגה 4 (9.15) מוכיח שהרילוד בתנועה עובד — להמשיך לחדד.</span></div>
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>מנטלי ב-Stage הגבוהים:</b> ההתאוששות בפברואר–אפריל מוכיחה חוסן מנטלי — לשמור על הגישה.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni4')"><span style="font-size:18px">🌍</span><span class="ins-title" style="color:var(--pur)">השוואה ליורים מקצועיים</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni4">
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>GM Level (90%+):</b> Grand Masters כמו Max Michel ו-Ben Stoeger יורים פקטור 10–13 עם A% 88–92%. ניר בפקטור 7.9 — כ-20% מתחת ל-GM.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Master Level (75–90%):</b> ניר בשיא 86% — כבר ב-Master Territory. המטרה הריאלית לעונה הבאה: 78–82% ממוצע.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Accuracy vs Speed Trade-off:</b> יורי GM יורים A% 85% עם פקטור 11+. ניר בA% 91% עם פקטור 7.9 — צריך לוותר מעט על דיוק למהירות.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Transitions:</b> יורי GM מבצעים Transition בין מטרות ב-0.2–0.25 שנ'. ניר כנראה ב-0.35–0.45 — שם הפוטנציאל הגדול.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Stage Planning:</b> יורי עלית מבלים 60–70% מזמן ה-Walkthrough על Stage planning ו-vision sequences — אימוץ השיטה יכול להעלות 3–5%.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni5')"><span style="font-size:18px">💭</span><span class="ins-title" style="color:var(--mut)">נקודות לחשיבה</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni5">
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>האם הנסיגה בינואר–פברואר קשורה לגורם חיצוני? לזהות מה השתנה בתקופה זו.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>ה-DQ ב-ProGun — ניתוח מה קרה ואיך למנוע: Safety Awareness תמיד first priority.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>ביצועים גבוהים יותר בתחרויות אזוריות מאשר ארציות — האם זה לחץ, אנשים, מגרש? לנתח.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>שקול תחרות אחת בחודש לעומת שתיים — האם ריבוי תחרויות פוגע בהכנה איכותית?</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ni6')"><span style="font-size:18px">🏋️</span><span class="ins-title" style="color:var(--grn)">תרגילים לשיפור — תנועה וירי</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ni6">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Bill Drill:</b> 6 כדורים על מטרה 1 מרחק 7 מ׳ — מטרה: מתחת ל-1.5 שנ'. מדוד פקטור. 10 חזרות ×3 סטים.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Mozambique Drill:</b> 2 לגוף + 1 לראש ×3 מטרות — תרגיל לTransition מהיר עם דיוק מדורג. מטרה: 3.5 שנ'.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>El Presidente:</b> 3 מטרות, ריצה 180°, Reload ×6 כדורים. מטרה: מתחת ל-7 שנ'. מדמה Stage ריאלי.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Moving while shooting:</b> 3 מטרות בקו, לירות תוך כדי הליכה lateral — לא לעצור. 5 חזרות בכל כיוון.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Draw to First Shot:</b> מצייד — מטרה B מ-7 מ': מתחת ל-1.0 שנ'. 20 חזרות × תכנות קצב שונה.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Reload Drill:</b> תוך כדי תנועה — לא לעצור לרילוד. 10 חזרות Stage 6 כדורים + Reload + 6 כדורים.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Steel Challenge practice:</b> 5 מטרות Steel — לשפר Transition ו-Flow. מטרה: 5 שנ' לסט. שמונה 2 פגיעות לכל מטרה.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="section page-section" id="nir-table">
+    <div class="sec-label">טבלה</div>
+    <div class="table-wrap"><table class="comp-table">
+      <thead><tr><th>תאריך</th><th>תחרות</th><th>אופטיקס</th><th>סניור</th><th>כללי</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">13.12</td><td style="font-size:11px">אלון ליגה 2</td><td><div class="bar-w"><div class="bar-f" style="width:74%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">74.1%</span></td><td><span class="badge by">#4</span></td><td class="mono" style="font-size:10px;color:var(--mut)">50.3%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">03.01</td><td style="font-size:11px">כוכב הצפון</td><td><div class="bar-w"><div class="bar-f" style="width:59%;background:var(--blu)"></div></div><span class="mono" style="color:var(--blu);font-size:10px">58.6%</span></td><td><span class="badge by">#4</span></td><td class="mono" style="font-size:10px;color:var(--mut)">48.2%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">17.01</td><td style="font-size:11px">ליגה 2</td><td><div class="bar-w"><div class="bar-f" style="width:66%;background:var(--blu)"></div></div><span class="mono" style="color:var(--blu);font-size:10px">65.7%</span></td><td><span class="badge bm">#8</span></td><td class="mono" style="font-size:10px;color:var(--mut)">52.4%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">30.01</td><td style="font-size:11px">אלון ליגה 3</td><td><div class="bar-w"><div class="bar-f" style="width:56%;background:var(--blu)"></div></div><span class="mono" style="color:var(--blu);font-size:10px">56.2%</span></td><td><span class="badge bm">#10</span></td><td class="mono" style="font-size:10px;color:var(--mut)">47.7%</td></tr>
+        <tr class="dq-row"><td class="mono" style="font-size:10px">14.02</td><td colspan="3" style="font-size:11px;color:var(--red)">🚫 DQ — ProGun</td><td></td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">20.02</td><td style="font-size:11px">ליגה 3</td><td><div class="bar-w"><div class="bar-f" style="width:54%;background:var(--red)"></div></div><span class="mono" style="color:var(--red);font-size:10px">54.2%</span></td><td><span class="badge bm">#9</span></td><td class="mono" style="font-size:10px;color:var(--mut)">42.4%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">27.02</td><td style="font-size:11px">הכדור 1 🥇</td><td><div class="bar-w"><div class="bar-f" style="width:82%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px">82.4%</span></td><td><span class="badge bg">#1🏆</span></td><td class="mono" style="font-size:10px;color:var(--grn)">74.1%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">28.03</td><td style="font-size:11px">אלון ליגה 4</td><td><div class="bar-w"><div class="bar-f" style="width:67%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">67.1%</span></td><td><span class="badge bm">#7</span></td><td class="mono" style="font-size:10px;color:var(--mut)">66.8%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">11.04</td><td style="font-size:11px">כוכב הצפון 🥇</td><td><div class="bar-w"><div class="bar-f" style="width:86%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px">86.2%</span></td><td><span class="badge bg">#1🏆</span></td><td class="mono" style="font-size:10px;color:var(--mut)">62.6%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">17.04</td><td style="font-size:11px">קלעי יהודה</td><td><div class="bar-w"><div class="bar-f" style="width:67%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">67.0%</span></td><td><span class="badge by">#4</span></td><td class="mono" style="font-size:10px;color:var(--mut)">61.0%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">01.05</td><td style="font-size:11px">הכדור 2</td><td><div class="bar-w"><div class="bar-f" style="width:72%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">71.9%</span></td><td><span class="badge by">#3</span></td><td class="mono" style="font-size:10px;color:var(--mut)">68.1%</td></tr>
+        <tr style="background:rgba(232,200,74,.06)"><td class="mono" style="color:var(--acc);font-size:10px;font-weight:700">08.05</td><td style="font-size:11px;color:var(--acc);font-weight:700">ליגה 4 ✨</td><td><div class="bar-w"><div class="bar-f" style="width:76%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px;font-weight:700">76.3%</span></td><td><span class="badge bm">#7</span></td><td class="mono" style="font-size:10px;color:var(--acc)">61.7%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><!-- /page-nir -->
+
+
+<!-- ══════════════════════════════════════
+     SHOOTER 2 — תומר אפרתי
+     ══════════════════════════════════════ -->
+<div class="shooter-page" id="page-tomer">
+  <div class="profile-header"><img class="profile-avatar" src="data:image/jpeg;base64,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" alt="תומר"><div class="profile-header-info"><h2>תומר אפרתי</h2><p>פרודקשן אופטיקס / סניור</p></div></div>
+
+  <div class="section page-section" id="tom-summary">
+    <div class="hero-row">
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">3</div><div class="hs-lbl">תחרויות</div><div class="hs-sub">עונת בכורה</div></div>
+      <div class="hero-stat y"><div class="hs-val" style="color:var(--acc)">63.1%</div><div class="hs-lbl">ממוצע</div><div class="hs-sub">פרו. אופטיקס</div></div>
+      <div class="hero-stat r"><div class="hs-val" style="color:var(--red)">↓</div><div class="hs-lbl">מגמה</div><div class="hs-sub">ירידה</div></div>
+    </div>
+    <div class="sec-label">מדדי מפתח</div>
+    <div class="kpi-grid">
+      <div class="kpi g"><div class="kpi-emoji">🏆</div><div class="kpi-val" style="color:var(--grn)">75.2%</div><div class="kpi-lbl">שיא</div><div class="kpi-sub">כוכב הצפון · 11/04</div><span class="delta up">↑ תחרות ראשונה</span></div>
+      <div class="kpi b"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--blu)">89.7%</div><div class="kpi-lbl">ממוצע דיוק</div><div class="kpi-sub">טווח: 88%–93%</div><span class="delta nu">— טוב</span></div>
+      <div class="kpi r"><div class="kpi-emoji">⚡</div><div class="kpi-val" style="color:var(--red)">81.0%</div><div class="kpi-lbl">ממוצע מהירות</div><div class="kpi-sub">טווח: 79%–83%</div><span class="delta dn">↓ נמוך</span></div>
+      <div class="kpi r"><div class="kpi-emoji">📉</div><div class="kpi-val" style="color:var(--red)">50.4%</div><div class="kpi-lbl">שפל</div><div class="kpi-sub">ליגה 4 · 08/05</div><span class="delta dn">↓ ירידה</span></div>
+      <div class="kpi g"><div class="kpi-emoji">🥇</div><div class="kpi-val" style="color:var(--grn)">#1</div><div class="kpi-lbl">שיא מיקום</div><div class="kpi-sub">סניור · כוכב הצפון</div><span class="delta up">↑ ניצחון!</span></div>
+      <div class="kpi y"><div class="kpi-emoji">📊</div><div class="kpi-val" style="color:var(--acc)">191</div><div class="kpi-lbl">שיא ניקוד</div><div class="kpi-sub">ליגה 4 · 308 לניר</div><span class="delta nu">— בכורה</span></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="tom-timeline">
+    <div class="sec-label">ציר זמן</div>
+    <div class="tl-scroll"><div class="tl"><div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot best">75.2%</div><div class="tl-date">11.04.26</div><div class="tl-name">כוכב הצפון 🥇</div><div class="tl-rank r1">#1</div></div>
+      <div class="tl-item"><div class="tl-dot good">63.8%</div><div class="tl-date">01.05.26</div><div class="tl-name">הכדור 2</div><div class="tl-rank r25">#2</div></div>
+      <div class="tl-item"><div class="tl-dot bad">50.4%</div><div class="tl-date">08.05.26</div><div class="tl-name">ליגה 4</div><div class="tl-rank rhi">#12</div></div>
+    </div></div>
+  </div>
+
+  <div class="section page-section" id="tom-charts">
+    <div class="sec-label">גרפים</div>
+    <div class="chart-card tall"><div class="chart-ttl">📊 פרו. אופטיקס לאורך העונה</div><canvas id="tom-cO"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">🎯 דיוק מול מהירות</div><canvas id="tom-cAS"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">💰 ניקוד גולמי</div><canvas id="tom-cP"></canvas></div>
+  </div>
+
+  <div class="section page-section" id="tom-comps">
+    <div class="sec-label">תחרויות</div>
+    <div class="comp-list">
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('tc0')" id="h-tc0">
+        <span class="ch-date">11.04.26</span>
+        <div class="ch-info"><div class="ch-name">אזורית כוכב הצפון 6 🥇</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">75.2%</span><span class="badge bg">#1 סניור 🏆</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="tc0">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">75.2%</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">55.8%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">174.9</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">93%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">83%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">#3</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('tc1')" id="h-tc1">
+        <span class="ch-date">01.05.26</span>
+        <div class="ch-info"><div class="ch-name">הכדור הראשון — 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">63.8%</span><span class="badge by">#2 סניור</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="tc1">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">63.8%</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">57.5%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">158.0</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">88%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--red)">81%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">#6</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('tc2')" id="h-tc2">
+        <span class="ch-date">08.05.26</span>
+        <div class="ch-info"><div class="ch-name">תחרות ליגה מס׳ 4</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--red)">50.4%</span><span class="badge bm">#12 סניור</span><span class="new-badge">חדש</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="tc2">
+          <div style="background:rgba(240,82,82,.08);border:1px solid rgba(240,82,82,.2);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#ff8080">📉 ירידה של 25% לעומת התחרות הקודמת</div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--red)">50.4%</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">61.7%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">191.4</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">88%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--red)">79%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--mut)">#30</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section page-section" id="tom-insights">
+    <div class="sec-label">תובנות מעמיקות</div>
+    <div class="ins-list">
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti0')"><span style="font-size:18px">💪</span><span class="ins-title" style="color:var(--grn)">חוזקות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti0">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>כוכב הצפון #1 בתחרות הראשונה:</b> 75.2% וניצחון קטגוריה — כניסה מרשימה לעולם התחרותי.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>דיוק טוב:</b> 88–93% A-zone — בסיס טוב. אין Miss בתחרויות שיש לנו נתונים עליהן.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>ניקוד עולה בליגה 4:</b> 191 נק' — הניקוד הגבוה ביותר למרות שהAoptics ירד. Stage ארוכים מתאימים.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti1')"><span style="font-size:18px">⚠️</span><span class="ins-title" style="color:var(--red)">חולשות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti1">
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>מגמה יורדת חדה:</b> 75% ← 64% ← 50% — ירידה של 25% בשלוש תחרויות. בעיה מנטלית או טכנית שצריך לאתר.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>מהירות נמוכה:</b> 79–83% — הנמוכה ביותר מבין 3 היורים. ה-Gap בין דיוק למהירות הוא 10% — גדול מדי.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>ליגה 4 — ירידה קשה:</b> 50.4% ו-#12 בקטגוריה — Stage ארוכים עם מטרות רבות מהווים אתגר.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti2')"><span style="font-size:18px">📈</span><span class="ins-title" style="color:var(--acc)">מה לשפר</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti2">
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>מהירות Trigger:</b> לצמצם זמן בין ירי לירי. אימון dry-fire יומי של 15 דקות על Trigger reset מדויק + מהיר.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Stage ארוכים:</b> לתרגל Stage של 25+ כדורים עם תנועה. הגוף והמוח צריכים להתרגל לעומס.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Transitions מהירות:</b> לעבוד על Visual Transition — לא להמתין לראות Sight Picture מושלם בכל מטרה.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti3')"><span style="font-size:18px">🔒</span><span class="ins-title" style="color:var(--blu)">מה להמשיך לחזק</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti3">
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>דיוק:</b> 88–93% — הבסיס הטכני קיים. לשמור על הגישה לכיוון ולא לוותר על איכות לטובת מהירות מוקדם.</span></div>
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>Stage Planning:</b> להשקיע ב-Walkthrough — כנראה ניצחון כוכב הצפון נבע גם מתכנון טוב.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti4')"><span style="font-size:18px">🌍</span><span class="ins-title" style="color:var(--pur)">השוואה ליורים מקצועיים</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti4">
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Production Optics Benchmarks:</b> A-Class בפרודקשן אופטיקס יורה 70–80% ממוצע. תומר בשיא 75.2% — פוטנציאל A-class קיים.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Speed gap:</b> יורי B-Class ומעלה בפרו. אופטיקס יורים 85%+ מהירות. תומר ב-81% — פער של 4–5% שסגירתו תעלה מיד 5–8% בביצוע הכולל.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Classifier scores:</b> לנסות Classifiers IPSC — ייתן מדד אובייקטיבי לרמה ויאפשר השוואה לרשת עולמית.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti5')"><span style="font-size:18px">💭</span><span class="ins-title" style="color:var(--mut)">נקודות לחשיבה</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti5">
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>מה השתנה בין כוכב הצפון (75%) לליגה 4 (50%)? לנתח — ציוד? לחץ? פיזיות? Stage type?</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>3 תחרויות זה מדגם קטן — לא להסיק מסקנות נחרצות. לצבור עוד 5–6 תחרויות לפני ניתוח מעמיק.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>שקול אימון עם יורה מנוסה יותר — ראיית עיניים חיצוניות תאתר בעיות טכניות מהר יותר מנתונים.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ti6')"><span style="font-size:18px">🏋️</span><span class="ins-title" style="color:var(--grn)">תרגילים לשיפור — תנועה וירי</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ti6">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Dry Fire — Trigger Control:</b> 15 דקות ביום. Draw → Trigger → Reset, חזרה 50×. ללא תחמושת, מוקד על Reset מהיר.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Speed Shooting Drill:</b> 3 מטרות 5 מ׳ — 2 ירי לכל מטרה, הכי מהיר. מטרה ראשונה: ≤2.5 שנ׳. לשפר שבועי.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Long Stage Simulation:</b> לבנות Stage 28+ כדורים בבית טווח עם תנועה. להתרגל לעומס.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>PASA target practice:</b> לתרגל C-zone shooting — להיות בנוח עם C תוך ירי מהיר. לא לכוון A בכל פעם.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Footwork Drill:</b> Stage עם 3 תחנות תנועה — לעבוד על כניסה ויציאה מ-Position ללא עצירה מיותרת.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section page-section" id="tom-table">
+    <div class="sec-label">טבלה</div>
+    <div class="table-wrap"><table class="comp-table">
+      <thead><tr><th>תאריך</th><th>תחרות</th><th>פרו. אופטיקס</th><th>סניור</th><th>כללי</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">11.04</td><td style="font-size:11px">כוכב הצפון 🥇</td><td><div class="bar-w"><div class="bar-f" style="width:75%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px">75.2%</span></td><td><span class="badge bg">#1🏆</span></td><td class="mono" style="font-size:10px;color:var(--mut)">55.8%</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">01.05</td><td style="font-size:11px">הכדור 2</td><td><div class="bar-w"><div class="bar-f" style="width:64%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">63.8%</span></td><td><span class="badge by">#2</span></td><td class="mono" style="font-size:10px;color:var(--mut)">57.5%</td></tr>
+        <tr style="background:rgba(232,200,74,.04)"><td class="mono" style="color:var(--acc);font-size:10px;font-weight:700">08.05</td><td style="font-size:11px;color:var(--acc);font-weight:700">ליגה 4 ✨</td><td><div class="bar-w"><div class="bar-f" style="width:50%;background:var(--red)"></div></div><span class="mono" style="color:var(--red);font-size:10px;font-weight:700">50.4%</span></td><td><span class="badge bm">#12</span></td><td class="mono" style="font-size:10px;color:var(--mut)">61.7%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><!-- /page-tomer -->
+
+
+<!-- ══════════════════════════════════════
+     SHOOTER 3 — אוריאל לבנשוס
+     ══════════════════════════════════════ -->
+<div class="shooter-page" id="page-uriel">
+  <div class="profile-header"><img class="profile-avatar" src="data:image/jpeg;base64,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" alt="אוריאל"><div class="profile-header-info"><h2>אוריאל לבנשוס</h2><p>פרודקשן אופטיקס / סניור</p></div></div>
+
+  <div class="section page-section" id="uri-summary">
+    <div class="hero-row">
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">3</div><div class="hs-lbl">תחרויות</div><div class="hs-sub">עונת בכורה</div></div>
+      <div class="hero-stat y"><div class="hs-val" style="color:var(--acc)">66.7%</div><div class="hs-lbl">ממוצע</div><div class="hs-sub">פרו. אופטיקס</div></div>
+      <div class="hero-stat r"><div class="hs-val" style="color:var(--red)">↓</div><div class="hs-lbl">מגמה</div><div class="hs-sub">ירידה</div></div>
+    </div>
+    <div class="sec-label">מדדי מפתח</div>
+    <div class="kpi-grid">
+      <div class="kpi g"><div class="kpi-emoji">🏆</div><div class="kpi-val" style="color:var(--grn)">71.7%</div><div class="kpi-lbl">שיא</div><div class="kpi-sub">כוכב הצפון · 11/04</div><span class="delta up">↑ תחרות ראשונה</span></div>
+      <div class="kpi b"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--blu)">92.3%</div><div class="kpi-lbl">ממוצע דיוק</div><div class="kpi-sub">טווח: 90%–95%</div><span class="delta up">↑ מצוין</span></div>
+      <div class="kpi r"><div class="kpi-emoji">⚡</div><div class="kpi-val" style="color:var(--red)">78.7%</div><div class="kpi-lbl">ממוצע מהירות</div><div class="kpi-sub">טווח: 76%–81%</div><span class="delta dn">↓ לשיפור</span></div>
+      <div class="kpi y"><div class="kpi-emoji">📊</div><div class="kpi-val" style="color:var(--acc)">249</div><div class="kpi-lbl">שיא ניקוד</div><div class="kpi-sub">ליגה 4 · 08/05</div><span class="delta up">↑ שיא</span></div>
+      <div class="kpi g"><div class="kpi-emoji">🥇</div><div class="kpi-val" style="color:var(--grn)">#2</div><div class="kpi-lbl">שיא מיקום</div><div class="kpi-sub">סניור · כוכב הצפון</div><span class="delta up">↑ חזק</span></div>
+      <div class="kpi r"><div class="kpi-emoji">⚠️</div><div class="kpi-val" style="color:var(--red)">—</div><div class="kpi-lbl">ליגה 4 אופטיקס</div><div class="kpi-sub">אין נתון</div><span class="delta nu">— חסר</span></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="uri-timeline">
+    <div class="sec-label">ציר זמן</div>
+    <div class="tl-scroll"><div class="tl"><div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot best">71.7%</div><div class="tl-date">11.04.26</div><div class="tl-name">כוכב הצפון</div><div class="tl-rank r25">#2</div></div>
+      <div class="tl-item"><div class="tl-dot bad">61.7%</div><div class="tl-date">01.05.26</div><div class="tl-name">הכדור 2</div><div class="tl-rank r25">#3</div></div>
+      <div class="tl-item"><div class="tl-dot dq">—</div><div class="tl-date">08.05.26</div><div class="tl-name">ליגה 4 ✨</div><div class="tl-rank rhi">אין נתון</div></div>
+    </div></div>
+  </div>
+
+  <div class="section page-section" id="uri-charts">
+    <div class="sec-label">גרפים</div>
+    <div class="chart-card tall"><div class="chart-ttl">📊 פרו. אופטיקס (2 תחרויות)</div><canvas id="uri-cO"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">🎯 דיוק מול מהירות</div><canvas id="uri-cAS"></canvas></div>
+    <div class="chart-card"><div class="chart-ttl">💰 ניקוד גולמי</div><canvas id="uri-cP"></canvas></div>
+  </div>
+
+  <div class="section page-section" id="uri-comps">
+    <div class="sec-label">תחרויות</div>
+    <div class="comp-list">
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('uc0')" id="h-uc0">
+        <span class="ch-date">11.04.26</span>
+        <div class="ch-info"><div class="ch-name">אזורית כוכב הצפון 6</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">71.7%</span><span class="badge by">#2 סניור</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="uc0">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">71.7%</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">53.0%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">166.2</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">92%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">81%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">#4</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('uc1')" id="h-uc1">
+        <span class="ch-date">01.05.26</span>
+        <div class="ch-info"><div class="ch-name">הכדור הראשון — 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--acc)">61.7%</span><span class="badge by">#3 סניור</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="uc1">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">61.7%</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">68.1%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">151.0</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">90%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--red)">76%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">#7</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('uc2')" id="h-uc2">
+        <span class="ch-date">08.05.26</span>
+        <div class="ch-info"><div class="ch-name">תחרות ליגה מס׳ 4</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--mut)">—</span><span class="badge bm">אין נתון אופטיקס</span><span class="new-badge">חדש</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="uc2">
+          <div style="background:rgba(104,116,142,.08);border:1px solid rgba(104,116,142,.25);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:var(--mut)">ℹ️ אין נתון עבור פרו. אופטיקס בתחרות זו</div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--mut)">—</div><div class="cs-lbl">פרו. אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">49.8%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">249.1</div><div class="cs-lbl">ניקוד 🏆</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">95%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--red)">79%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">#7</div><div class="cs-lbl">מיקום כללי</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section page-section" id="uri-insights">
+    <div class="sec-label">תובנות מעמיקות</div>
+    <div class="ins-list">
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui0')"><span style="font-size:18px">💪</span><span class="ins-title" style="color:var(--grn)">חוזקות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui0">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>דיוק מצוין:</b> 90–95% A-zone — הגבוה ביותר מבין 3 היורים. בסיס טכני חזק ביותר.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>ניקוד שיא בליגה 4:</b> 249.1 נק' — הגבוה ביותר מבין 3 היורים. מתאים לStage ארוכים.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>כוכב הצפון — #2 סניור:</b> תחרות ראשונה ומיד #2 — מדהים. הבסיס הטכני קיים.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui1')"><span style="font-size:18px">⚠️</span><span class="ins-title" style="color:var(--red)">חולשות</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui1">
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>מהירות — הנמוכה ביותר:</b> 76–81% ממוצע. הפער בין דיוק (92%) למהירות (79%) — 13% — הכי גדול מבין 3 היורים.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>מגמה יורדת:</b> 71.7% ← 61.7% ← אין נתון. ירידה של 10% בתחרות השנייה בלבד.</span></div>
+          <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>חסר נתון ליגה 4:</b> אין נתון אופטיקס — בעיה רישומית? כדאי לוודא שהנתון מדווח נכון בפעם הבאה.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui2')"><span style="font-size:18px">📈</span><span class="ins-title" style="color:var(--acc)">מה לשפר</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui2">
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>מהירות — זה הפריט #1:</b> 13% פער דיוק/מהירות אומר שהגוף "מחכה" לפני ירי. לאמן Aggressive Trigger Follow-through.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Split Times:</b> למדוד Split Time בין ירי (אפליקציית ShotTimer). מטרה: 0.18–0.22 שנ' ב-7 מ׳ על מטרה A.</span></div>
+          <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>להתיר קצת דיוק:</b> C-zone hit עם מהירות גבוהה נותן יותר נק' מA-zone איטי. לתרגל "90% מהר" במקום "100% מושלם".</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui3')"><span style="font-size:18px">🔒</span><span class="ins-title" style="color:var(--blu)">מה להמשיך לחזק</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui3">
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>דיוק 90–95%:</b> נדיר ביורים חדשים. לא לשנות את הגישה הטכנית — רק להוסיף מהירות בשכבה.</span></div>
+          <div class="ins-item"><span style="color:var(--blu)">▸</span><span><b>Stage ארוכים:</b> 249 נק' בליגה 4 — כנראה Stage הגדולים מתאימים. להמשיך לפתח יכולת זו.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui4')"><span style="font-size:18px">🌍</span><span class="ins-title" style="color:var(--pur)">השוואה ליורים מקצועיים</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui4">
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>דיוק-עלית:</b> אוריאל יורה A% כמו יורי Master ומעלה — 90–95% זה Benchmark של Top 10% בכל תחרות. הדיוק כבר שם.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Speed is the bottleneck:</b> יורי B-class עם דיוק דומה יורים בפקטור 7–8. אוריאל כנראה ב-5–6. שיפור מהירות = קפיצה של שתי רמות.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Production Optics Pros:</b> Lena Miculek, Tori Nonaka — דיוק 86% עם מהירות 95%+. המתכון: "A-zone enough, max speed". ללמוד מהגישה.</span></div>
+          <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Video Analysis:</b> להסתכל על YouTube: "IPSC Production Optics Grand Master breakdown" — לזהות את ה-Footwork ו-Transition pattern שמעלה מהירות.</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui5')"><span style="font-size:18px">💭</span><span class="ins-title" style="color:var(--mut)">נקודות לחשיבה</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui5">
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>הדיוק הגבוה מוכיח שהיד יציבה ו-Grip טוב — האם ה-Grip חזק מדי? Overgrip גורם לירי איטי.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>האם יש "מחשבה יתרה" לפני כל ירי? Overthinking מאט. לאמן Pre-Shot Routine פשוט וחוזרני.</span></div>
+          <div class="ins-item"><span style="color:var(--mut)">▸</span><span>לנתח הבדל בין תחרות 1 (#2 סניור) לתחרות 2 (#3) — מה השתנה? Stage? תנאים? מצב רוח?</span></div>
+        </div>
+      </div>
+
+      <div class="ins-card">
+        <div class="ins-head" onclick="toggleIns('ui6')"><span style="font-size:18px">🏋️</span><span class="ins-title" style="color:var(--grn)">תרגילים לשיפור — תנועה וירי</span><span class="ch-arrow">›</span></div>
+        <div class="ins-body" id="ui6">
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Accelerated Pairs:</b> 2 ירי מהירים כל האפשר — 5 מ׳ על מטרה C. רשום Split Time. מטרה: Split מתחת ל-0.20 שנ'.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Rhythm Shooting:</b> לירות בקצב מטרונום — מתחיל ב-1 ירי/שנ' ומאיץ. מכריח את המוח לשחרר את ה"בדיקה" לפני ירי.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Aggression Drill:</b> 3 מטרות C-zone בלבד — לירות הכי מהיר שיכול ללא עצירה. A-zone היא בונוס, לא מטרה.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Draw Speed:</b> מצייד — Shot Timer ← Draw ← First Shot. מטרה: מתחת ל-0.9 שנ' DRAW. 30 חזרות.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Walk & Shoot:</b> לירות תוך כדי הליכה lateral — לא לעצור לפני ירי. זה יכריח להרפות מה-Overthinking.</span></div>
+          <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Dry Fire Speed Focus:</b> 15 דקות יום — Draw + Trigger × 40 חזרות עם מוקד על SPEED, לא דיוק. שנה את ה-Habit.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section page-section" id="uri-table">
+    <div class="sec-label">טבלה</div>
+    <div class="table-wrap"><table class="comp-table">
+      <thead><tr><th>תאריך</th><th>תחרות</th><th>פרו. אופטיקס</th><th>סניור</th><th>ניקוד</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">11.04</td><td style="font-size:11px">כוכב הצפון</td><td><div class="bar-w"><div class="bar-f" style="width:72%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px">71.7%</span></td><td><span class="badge by">#2</span></td><td class="mono" style="font-size:10px;color:var(--mut)">166.2</td></tr>
+        <tr><td class="mono" style="color:var(--mut);font-size:10px">01.05</td><td style="font-size:11px">הכדור 2</td><td><div class="bar-w"><div class="bar-f" style="width:62%;background:var(--acc)"></div></div><span class="mono" style="color:var(--acc);font-size:10px">61.7%</span></td><td><span class="badge by">#3</span></td><td class="mono" style="font-size:10px;color:var(--mut)">151.0</td></tr>
+        <tr style="background:rgba(232,200,74,.04)"><td class="mono" style="color:var(--acc);font-size:10px;font-weight:700">08.05</td><td style="font-size:11px;color:var(--acc);font-weight:700">ליגה 4 ✨</td><td><span class="mono" style="color:var(--mut);font-size:10px">—</span></td><td><span class="badge bm">—</span></td><td class="mono" style="font-size:10px;color:var(--grn);font-weight:700">249.1 🏆</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><!-- /page-uriel -->
+
+<div class="shooter-page" id="page-lee">
+  <div class="profile-header"><img class="profile-avatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAB4AHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDziG/iBDRsTnmun0CT+0Zo41GSTz9BXm+t6bqngvWDY6tCfLf542XlJFP8SH+Yr1T4UxRS2t5qasGRUEat2Hc1nWhyrUKU1LVbGrrl5HpNk0kjYIHCjua8n1bxVqj3DGGV4xnGBzXYeL7sXcsk0/MSElEJ4/3j6j/6wrE8LeGJtbuft1+D5GcxxkYz6cVhpCPNI6oxlN8sTMurbXdd0a3uJ28+FWYBEGCD6kd65mexeB9syNGfRhzX0TZ6XHawrHGoCgdO1Z2teF7fUI2MiLuPQhelYxxaWltDplgW1dPU8OtTJbzI8TMp7EHrXofhXWWnAhuW+f8AhJ7+1ZOo+HW05nV13IeAfx6H2/l9Kr2sDRO5+cFDyD1A9fqK3bU1dHNyODsz1CA7hVyIVxmkeJUEXl3SOZkO19uOfetyDxFaH+CYfgD/AFrF3KSOhjFTlW2EoF3ds9KxoNcsmx/rR/wH/wCvV6PWbIj77j6oaybZaSIZ21FJGEdmsyA8P9t2Fh6ldhA+mapSXOrBudLfbnqt7G381Fa39qWTf8tsfVTUT39melwv4g01PyE4GZNdX6DiyuW+hiP9aKtveWp/5eIvzoq+cnlMn9pOaOPwvo9sUQzSXJdWIyVCpzg9slh+VVPh9bvpfw7MUgKvcXUn4rgc/pVT48TjU/Gvh7S4XDKsK9PV35/RK2dVmTT/AA7bRDC4DYOemSeR+leviGpNs8nBQcIJHKah5d3dCAjKsQCM8YB6fnXpeh2i29nEm0DC9B2rifBmjveXY1W7GIRxbRZ6/wC0f6f/AKq9Kt4vlHFeJiJcz5V0PocNDkjzPqKFHpS7eKnEdKISegrDlOrmOf1rS47yBwwGT+lef+QIb5raTAuUGFJ/iHp7+x/A165LCcHiuM8ZaCb62Mtudl1HyjCtKc3B67GNaCqLzOB1iya1njuoAfLf5T7H0pkdwygHBHr7VDHrZlaWw1SMx3A+R+eGPY067mgs41luZAA3G4nHTvXbY89mna3ZOOta1vMSK5iDWdK24FzArYzy1aVnrenED/TLf/v4KylF9hxa7m7vqKR+KgGqWbj5biFvo4qtcX0ODtdfzrPlZpdDriX3orHur5OdrD86KtRZFyd/+Jl8Y5Sp3C15GefuxgfzaqfxA8TQz6stjbiQwWreXKcY3EHnH68/4U7wle27/ETWLxMmOUSeScdsjH04Fc+8VtqHiqcXTYMsjjJ5xIc7cjuCePxr00tFFnnttao7TRvH9s8EVsLWe3iijAYoy5bA6A4wK6/TNXtNQRn07U54XUjC3Drz9B3ryiwY6XclI2EtpMMjOcZ7fiDwa9U8JeILSC4keOQJo8SsZNOliVmc47ZB7nH4Vk6NNLTQ39vVv3Oq0m5vQ4F3JHKhGRIuOR+FbF1cJbW/mMyICM7mIAFeW+Jte8Pa/ZwN4fsJ9Nv1cG4jU4icEHoPUYHIA79ar+IfDl7Y6XazTXr3BbYk6sDiM9iMk55wvbtWDoQvvudEcRUcW+XY6a71BLu8VZNV2hjjZFls/lWL4uvH0qweaxjuxIg3macSKoX15FanhHx7pPhv7FpkenS3MMufNvFjxIXboODzjv8ApWR8VfFNr4u02Oxs/wDRIo5A8hZzuYd0cAevOPWt406djmnWrOXZHmmpzDX7sXZnhiukABMUZ2v7kZrd0Wxj1i1bT9QcrIhEoIXJx3GD/nmqsek22lwXF0JImAi8sEknazfxD3ADc0vgm9e419XA2iU7AD/dIOD+lKcYwiVTk5T97U7+Twf4ennRG0i2Aa58r5AVOMdODVR/AfhlrG9lbTlWSOUqv75xj8M12un6dc3ku8lEVZTLnB+9jGKs3nhC6e1nuLaQNHnc4YYGD1wfaiOKpN8qerLlTtaTWmn5/wCR55qPw98KrZwNb2TiQkB2Ez9ePeqEvgHw+dPM8EV5buwO0i6bI98dK7eHTLiR2MpMcS5YF+/pSrZSR2Jik2ncAMA+ldNX3U5NWRx05xbjFau58/eIrW80DU2s3ka5UqrpIBzgjOD70V7QmiwI7PsBJPcUVw+1T1SOpws9zZv/AADovhnw7dXFlDLJeFTmeaQlueoAGAB+FeFX0EZ1SRm+WSV1VXHUZccivp/xrMJvDk4U5LLXzv4jsDGzTR9ElDg47H/6+K6amljGlqncm1TSbu3lP2mMI7cl8YjlP95T056leoOe1UYobtnG3cT7SAfnzXufhmVLrS7eXGRIoYg1tpbWobeLeHd67BXI69lqtT0Vhl0eh494G8PXc+qRSzqVt1IZsHIOOcZ6E5x0zgZ9a9N1K0F5aywTgtFIpVh6g1cv47l23W+3djAz2qKRrmSLytpVgOpHArKdTn1OilTVNNdzyK/8I6nHdyvAC67sh9jAN7gqDg+xxg1QXwvrEspUI+0nn5XP9K9ytQ8Kg7vnHJxxS3L78kjk01iHYz+qxvozyPVNAfTvCd2tycEptVTjJZiAWb3xwAOg9zWD4OG3xBbFBwigD6hiB/Ou9+JE4Wxt7Yfenkzj2Uf4kV554enFpKk5OGE6t+G7/wCtVKUpQbZjOMYT5Y9D6c8LtcPcQIQptgMtlARj612NzteymjRQcoQFH0rI8L38FxpsboFTIB+UcEHkH9a3POjPVv0rOilFPWzOaq7y2OUPhpbm0JVyvmr65xxXnCWNzoXiW60+9u3uo5A2HfAwwGQABwAR29fWvXL7WrXS7NN+XkIO2NeuM9T6V5n4nuYtU1Rp/KC72DbSc4wMda1dSrVhyuTaZnTp06c+ZRsZ11NFHHk8UVl32nW7SZZWOfR2/wAaK2jQ01FKpdm1e6ibnSpY35YDp61xptYrqK4jkAfa7DHqp5H9a1bW53xup54NY07m3upNh4ePIHqR/wDqruxULOyOfBTbidP8O3C6bLZlixtpCqk9dp5X9DXZj5Rnr9K8k8Oa4um+IYnkbbbXQCMT0B7fkcj8a9bilDKCDkHkGvIqx1PapT0sUbzVYYyUiDNIOvykAVmyatcM20I2PXaa3Lu3+0L1IPqDWedLfdzKcfSp0O6jKmo+9uRWupM0io0DsW6ED+daLr8uTTYbVYBgDn1qHUr2KztJZp3VI41LsxPAAqWk2Yzmr3ieZeO7lZ/Ec6s2I7O1PPoTyfx5FcDbS7kYAbcFSF9Oat+INSfUbqaVMqL8iTntHnj9BWdajc744G4H8M11WtGx57d5Nn078LNR+1eGrR0b95EPLI9h0/Q16MLhFtmnY4RVLN7Y6188fCnUnt5Gtw7Ksg6Z43L/APWP6V6/Ncz3OlzQR8s4GQevHasNnoTUh1OS1W/a6uZ5m43SMcegzxXOtdB7mU5+78tTanc7BOSCpV2BB6g5rkIdUSPcZXwWYn9a9CnBRikcU5NtnTPJvxmisFNZtu8oorSxnqVdMumW6KuTkNyD/WpNVOySF8ZCyFT9G6fyrofiDohsyuq20fQAzhe/H3/6H865W4cXVvNGjfvHTKj3+v4VvWfOlJE4VODcWYmpw7RLDLkAfOhHXHf+hrovh743nXGmaiTIYuI5T1K+h/xrK1ALcWkEgOTtCn8ev+fauUtTLaahFcRHE8EmDjv/APrHFefON7o9KErWPpWw1W2uIxtkXPpmrhuYwOx/GuL0u3g1Gwhu7f5RIobiri6e6nmRjXPfudPM0bF9qMMSkggn0rxD4peKZ9RuP7LtnK2wbMuP4z/dPt/WvTNbVbTT5pCfmVCcmvB5Va4vp5XVmVFL5P8AEc8fqaumru5lVm7WNF7dVhg65jgjiyfXB/xqG1jJlkI4AI/nirt6rIkMZGXCLnj+LA/wqawtR5EoOAQq5/OrZK0NvwnfGCde21g+c9K9w0K/EygucHivnCKY28pZeiMD9VPP9K9m8C6gLqzhdTu+XGfX/OKxcdS29C/8R9PaOzlvxgodvzAYPoQ3r2IPpkHpXk2nTBo8tzzXvGrWP9qaLc2ErERTjhsZ8tgcgivFdX0C+8PS+TfRjaSfLlTlHHsfX26110ZacrOGtHW6JopVHYUVmRT+9FdFzm1PoO6tI7q0EcyK6FACCMggivBvFWmy+HNea0Ib7PJmS1k9R3X6ivcdWkvrUQCyeM525SYblIxzg9RWR4u0CLxRoMkE8fkXS/PDIDny3HQg+nrmpUuhqlZ3PE7R0mMkDtjIPB9xkf1rE1JGsr6OZgQknyuPp3+tWmE0V7LDOnlXkBaOaP0Zef8AH8DV+8h/tPSty/NKBvGfUcY/EZFZSWp0J6AviHWPDtssmlzKbRj88ToHUE85HcZ60g+JmusGI+xDA3f6k/41S0OeKexa2uQWQDay9yvt7qaw9S0ttMuCu8SRNyrL0ZT3/wA9xTjGL3QpSktmblz4p1jV43W9ugUJ2CNECL6n61neH4DNeXETElmZc57ANn+lZcUpSNkQ/OrZY+vGP6frW/4S/wCQhHvIDTnYPTpz/MUnGz0BO61NG8thLd8kZIzj6U62QrLJBkFjH+o56/lWjd2pivJV2ZYxyBT79arSIsN35rtjB2EHuSf/AK1S0aXMHVAY2RYyQ7JGentmvQPhfeZZ0XqGzge4rg0xdX0QkzkzeW36kV1vwxHl6vNyeJGAAGOjDH6ZrKa6lx10Pd7X54lK8gim39hb6hZPb3sKywOOUYfr7Gn2sZTbECMjrmnyib7VJBasrOCMnb8sQx1Y+voKNHsZvQ8Y8c+C5NAja/sZTNp24Bgx+eIk8Z9R70V1Xxr07UxogurO+ll02JlF1bAAKD/DJwOmeDnpwaK6oNtanNNK+h3+qw/u7dsZwB/KltDz2xRRVpakX90wvFfhXRNTilvr60RZ4EaQ3EfySAKCeSOvHrmvmzw/qOCUPCNyvPT0/wA+1FFTM0pCTsLLVmZRiOT5gM9j/wDXBq6St/bNbvt8yJmCn0bqPwYfyooqF3NWcxs8mRzzuXIII6D0rotFjWHUNNC8KspRgRyCTRRVPclbHd3QUv5rANu4IBxg4PP6/rXK66RsCEksGJ+rD/JooqWWilaqklxHOMbX2OT7qwB/Q1v+CXaz8TRk5IeUj6gk0UVjNGsGe/2cqSXnytkMF2k/SrhMkzEALBCWLEZ5Y+pooq1FHNKTuQNCmoO1vCivCAVldhlSO6+9FFFUSf/Z" alt="לי"><div class="profile-header-info"><h2>לי יצקן</h2><p>סטנדרט נשים</p></div></div>
+
+  <div class="section page-section" id="lee-summary">
+    <div class="hero-row">
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">1</div><div class="hs-lbl">תחרות</div><div class="hs-sub">עונת בכורה</div></div>
+      <div class="hero-stat y"><div class="hs-val" style="color:var(--acc)">94.3%</div><div class="hs-lbl">ביצוע</div><div class="hs-sub">סטנדרט נשים</div></div>
+      <div class="hero-stat b"><div class="hs-val" style="color:var(--blu)">—</div><div class="hs-lbl">מגמה</div><div class="hs-sub">נתון אחד</div></div>
+    </div>
+    <div class="sec-label">מדדי מפתח</div>
+    <div class="kpi-grid">
+      <div class="kpi g"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--grn)">94.3%</div><div class="kpi-lbl">ביצוע סטנדרט נשים</div><div class="kpi-sub">קלעי יהודה 2 · 13/02</div><span class="delta up">↑ תחרות ראשונה</span></div>
+      <div class="kpi b"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--blu)">79%</div><div class="kpi-lbl">ציון דיוק</div><div class="kpi-sub">בסיס לשיפור</div><span class="delta nu">— נתון ראשון</span></div>
+      <div class="kpi r"><div class="kpi-emoji">⚡</div><div class="kpi-val" style="color:var(--red)">63%</div><div class="kpi-lbl">ציון מהירות</div><div class="kpi-sub">הנמוך ביותר</div><span class="delta dn">↓ לשיפור עיקרי</span></div>
+      <div class="kpi y"><div class="kpi-emoji">🏅</div><div class="kpi-val" style="color:var(--acc)">#2</div><div class="kpi-lbl">מיקום קטגוריה</div><div class="kpi-sub">נשים · תחרות ראשונה</div><span class="delta up">↑ מצוין!</span></div>
+      <div class="kpi b"><div class="kpi-emoji">📊</div><div class="kpi-val" style="color:var(--blu)">79.7</div><div class="kpi-lbl">ניקוד גולמי</div><div class="kpi-sub">קלעי יהודה 2</div><span class="delta nu">— בסיס</span></div>
+      <div class="kpi y"><div class="kpi-emoji">📅</div><div class="kpi-val" style="color:var(--acc)">13/02</div><div class="kpi-lbl">תחרות אחת</div><div class="kpi-sub">פברואר 2026</div><span class="delta nu">— בכורה</span></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="lee-timeline">
+    <div class="sec-label">ציר זמן</div>
+    <div class="tl-scroll"><div class="tl"><div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot best has-st">94.3%</div><div class="tl-date">13.02.26</div><div class="tl-name">קלעי יהודה 2</div><div class="tl-rank r25">#2</div></div>
+    </div></div>
+  </div>
+
+  <div class="section page-section" id="lee-comps">
+    <div class="sec-label">תחרויות</div>
+    <div class="comp-list">
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('lc0')" id="h-lc0">
+        <span class="ch-date">13.02.26</span>
+        <div class="ch-info"><div class="ch-name">אזורית קלעי יהודה 2</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">94.3%</span><span class="badge by">#2 נשים</span><span class="badge bmail">3 תרגילים</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="lc0">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">94.3%</div><div class="cs-lbl">סטנדרט נשים</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">24.9%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--blu)">79.7</div><div class="cs-lbl">ניקוד</div></div>
+          </div>
+          <div style="background:rgba(240,82,82,.08);border:1px solid rgba(240,82,82,.2);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#ff8080">⚠️ Stage 1: 4 Miss + 2 ענישה → 0 נקודות. Stage 2–3 הרבה יותר טובים!</div>
+          <div class="stages-scroll">
+            <div class="sc">
+              <div class="sc-num">Stage 1 ⚠️</div>
+              <div class="sc-factor na">0.0000</div>
+              <div class="sc-meta">13 כד · 15.24 שנ׳<br>0 נק׳ · עדי תם<br>1 ברזל</div>
+              <div class="sc-hits"><span class="hit A">A×5</span><span class="hit C">C×2</span><span class="hit D">D×2</span><span class="hit M">M×4</span><span class="hit M">(M)×2</span></div>
+            </div>
+            <div class="sc">
+              <div class="sc-num">Stage 2 🏆</div>
+              <div class="sc-factor ok">2.8052</div>
+              <div class="sc-meta">32 כד · 50.62 שנ׳<br>142 נק׳ · דורון פפו</div>
+              <div class="sc-hits"><span class="hit A">A×24</span><span class="hit C">C×7</span><span class="hit D">D×1</span></div>
+            </div>
+            <div class="sc">
+              <div class="sc-num">Stage 3</div>
+              <div class="sc-factor lo">2.0251</div>
+              <div class="sc-meta">22 כד · 45.43 שנ׳<br>92 נק׳ · עדי תם<br>2 ברזל</div>
+              <div class="sc-hits"><span class="hit A">A×14</span><span class="hit C">C×7</span><span class="hit D">D×1</span></div>
+            </div>
+          </div>
+          <div class="fbars">
+            <div class="fbar-row"><div class="fbar-lbl">Stage 1</div><div class="fbar-wrap"><div class="fbar-fill" style="width:0%;background:var(--red)"></div></div><div class="fbar-val" style="color:var(--red)">0.00 ⚠️</div></div>
+            <div class="fbar-row"><div class="fbar-lbl">Stage 2</div><div class="fbar-wrap"><div class="fbar-fill" style="width:100%;background:var(--grn)"></div></div><div class="fbar-val" style="color:var(--grn)">2.81 🏆</div></div>
+            <div class="fbar-row"><div class="fbar-lbl">Stage 3</div><div class="fbar-wrap"><div class="fbar-fill" style="width:72%;background:var(--acc)"></div></div><div class="fbar-val" style="color:var(--acc)">2.03</div></div>
+          </div>
+          <div class="stages-summary">
+            <span>67 כד</span><span>234 נק׳</span>
+            <span>A% S2+3: <b style="color:var(--grn)">70.4%</b></span>
+            <span>Miss: <b style="color:var(--red)">4 (S1 בלבד)</b></span>
+            <span>פקטור ממוצע S2+3: <b>2.42</b></span>
+          </div>
+          <div style="background:rgba(62,207,128,.08);border:1px solid rgba(62,207,128,.2);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:11px;color:var(--grn)">🌟 תחרות ראשונה — #2 בקטגוריה נשים! ללא Stage 1 הפגום — ביצוע חזק!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="lee-insights">
+    <div class="sec-label">תובנות מעמיקות</div>
+    <div class="ins-list">
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('li0')"><span style="font-size:18px">💪</span><span class="ins-title" style="color:var(--grn)">חוזקות</span><span class="ch-arrow">›</span></div><div class="ins-body" id="li0">
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>#2 בתחרות ראשונה:</b> הישג מרשים מאוד — מוכיח שהבסיס הטכני קיים.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>ביצוע 94.3% בקטגוריה:</b> רמה גבוהה ביחס לשאר הנשים בתחרות.</span></div>
+      </div></div>
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('li1')"><span style="font-size:18px">⚠️</span><span class="ins-title" style="color:var(--red)">חולשות</span><span class="ch-arrow">›</span></div><div class="ins-body" id="li1">
+        <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>מהירות 63%</b> — הנמוכה ביותר מבין כל היורים. הפוטנציאל הגדול ביותר לשיפור.</span></div>
+        <div class="ins-item"><span style="color:var(--red)">▸</span><span><b>כללי 24.9%</b> — פער גדול בין ביצוע קטגוריה לביצוע כללי. Stage הארוכים מאתגרים.</span></div>
+      </div></div>
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('li2')"><span style="font-size:18px">🏋️</span><span class="ins-title" style="color:var(--grn)">תרגילים</span><span class="ch-arrow">›</span></div><div class="ins-body" id="li2">
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Draw Speed Drill:</b> מצייד לירי ראשון — מטרה מתחת ל-1.5 שנ'. 20 חזרות.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Rhythm Shooting:</b> לירות בקצב מטרונום — להרגיל את האצבע לקצב קבוע מהיר.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Transition Drill:</b> 3 מטרות × 2 ירי — לשפר מהירות מעבר בין מטרות.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Dry Fire:</b> 10 דקות ביום — Trigger control + Reset מהיר ללא עייפות.</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="lee-table">
+    <div class="sec-label">טבלה</div>
+    <div class="table-wrap"><table class="comp-table">
+      <thead><tr><th>תאריך</th><th>תחרות</th><th>ביצוע</th><th>קטגוריה</th><th>ניקוד</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(232,200,74,.04)"><td class="mono" style="color:var(--acc);font-size:10px">13.02</td><td style="font-size:11px">קלעי יהודה 2</td><td><div class="bar-w"><div class="bar-f" style="width:94%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px">94.3%</span></td><td><span class="badge by">#2</span></td><td class="mono" style="font-size:10px;color:var(--mut)">79.7</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><!-- /page-lee -->
+
+<div class="shooter-page" id="page-adi">
+  <div class="profile-header"><img class="profile-avatar" src="data:image/jpeg;base64,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" alt="עדי"><div class="profile-header-info"><h2>עדי מור</h2><p>אופטיקס · כללי</p></div></div>
+
+  <div class="section page-section" id="adi-summary">
+    <div class="hero-row">
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">1</div><div class="hs-lbl">תחרות</div><div class="hs-sub">עונת בכורה</div></div>
+      <div class="hero-stat y"><div class="hs-val" style="color:var(--acc)">69.8%</div><div class="hs-lbl">אופטיקס</div><div class="hs-sub">תחרות ראשונה</div></div>
+      <div class="hero-stat g"><div class="hs-val" style="color:var(--grn)">95%</div><div class="hs-lbl">דיוק</div><div class="hs-sub">מצוין!</div></div>
+    </div>
+    <div class="sec-label">מדדי מפתח</div>
+    <div class="kpi-grid">
+      <div class="kpi g"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--grn)">69.8%</div><div class="kpi-lbl">אופטיקס</div><div class="kpi-sub">אזורית ברוך קידר · 15/05</div><span class="delta up">↑ תחרות ראשונה</span></div>
+      <div class="kpi g"><div class="kpi-emoji">🎯</div><div class="kpi-val" style="color:var(--grn)">95%</div><div class="kpi-lbl">ציון דיוק</div><div class="kpi-sub">הגבוה ביותר!</div><span class="delta up">↑ מצוין</span></div>
+      <div class="kpi y"><div class="kpi-emoji">⚡</div><div class="kpi-val" style="color:var(--acc)">87%</div><div class="kpi-lbl">ציון מהירות</div><div class="kpi-sub">טוב מאוד</div><span class="delta up">↑ טוב</span></div>
+      <div class="kpi y"><div class="kpi-emoji">🏅</div><div class="kpi-val" style="color:var(--acc)">#5</div><div class="kpi-lbl">מיקום כללי אופטיקס</div><div class="kpi-sub">קטגוריה כללי</div><span class="delta up">↑ חזק</span></div>
+      <div class="kpi b"><div class="kpi-emoji">📊</div><div class="kpi-val" style="color:var(--blu)">276.4</div><div class="kpi-lbl">ניקוד</div><div class="kpi-sub">הגבוה מבין כולם!</div><span class="delta up">↑ שיא</span></div>
+      <div class="kpi b"><div class="kpi-emoji">📈</div><div class="kpi-val" style="color:var(--blu)">58.8%</div><div class="kpi-lbl">ביצוע כללי</div><div class="kpi-sub">תחרות ראשונה</div><span class="delta nu">— בסיס</span></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="adi-timeline">
+    <div class="sec-label">ציר זמן</div>
+    <div class="tl-scroll"><div class="tl"><div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot best">69.8%</div><div class="tl-date">15.05.26</div><div class="tl-name">אזורית ברוך קידר</div><div class="tl-rank r25">#5</div></div>
+    </div></div>
+  </div>
+
+  <div class="section page-section" id="adi-comps">
+    <div class="sec-label">תחרויות</div>
+    <div class="comp-list">
+      <div class="comp-card"><div class="comp-head" onclick="toggleComp('ac0')" id="h-ac0">
+        <span class="ch-date">15.05.26</span>
+        <div class="ch-info"><div class="ch-name">אזורית לזכרו של ברוך קידר ז"ל</div><div class="ch-score-row"><span class="ch-pct" style="color:var(--grn)">69.8%</span><span class="badge bg">#9 כללי</span><span class="new-badge">חדש</span></div></div>
+        <span class="ch-arrow">›</span></div>
+        <div class="comp-body" id="ac0">
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">69.8%</div><div class="cs-lbl">אופטיקס</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">58.8%</div><div class="cs-lbl">כללי</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">276.4</div><div class="cs-lbl">ניקוד 🏆</div></div>
+          </div>
+          <div class="comp-stat-row">
+            <div class="comp-stat"><div class="cs-val" style="color:var(--grn)">95%</div><div class="cs-lbl">דיוק</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">87%</div><div class="cs-lbl">מהירות</div></div>
+            <div class="comp-stat"><div class="cs-val" style="color:var(--acc)">#5</div><div class="cs-lbl">קטגוריה כללי</div></div>
+          </div>
+          <div style="background:rgba(62,207,128,.08);border:1px solid rgba(62,207,128,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:var(--grn)">🌟 דיוק 95% — הגבוה ביותר מבין כל 5 היורים! ניקוד 276 — שיא הקבוצה!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="adi-insights">
+    <div class="sec-label">תובנות מעמיקות</div>
+    <div class="ins-list">
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('ai0')"><span style="font-size:18px">💪</span><span class="ins-title" style="color:var(--grn)">חוזקות</span><span class="ch-arrow">›</span></div><div class="ins-body" id="ai0">
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>דיוק 95% — שיא הקבוצה:</b> הגבוה ביותר מבין כל 5 היורים. בסיס טכני מצוין.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>ניקוד 276 — שיא הקבוצה:</b> Stage ארוכים מאוד מתאימים לעדי.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>מהירות 87%:</b> טובה מאוד לתחרות ראשונה — שילוב מצוין עם הדיוק.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>69.8% אופטיקס בתחרות ראשונה:</b> ביצוע גבוה מאוד ביחס לממוצע של ניר לאורך עונה.</span></div>
+      </div></div>
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('ai1')"><span style="font-size:18px">📈</span><span class="ins-title" style="color:var(--acc)">מה לשפר</span><span class="ch-arrow">›</span></div><div class="ins-body" id="ai1">
+        <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>ביצוע כללי 58.8%:</b> פער גדול בין אופטיקס (69.8%) לכללי. Stage עם מרכיבי תנועה מאתגרים יותר.</span></div>
+        <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Draw Speed:</b> לצמצם זמן שליפה — עם דיוק 95%, להוסיף מהירות שליפה תעלה פקטור משמעותית.</span></div>
+        <div class="ins-item"><span style="color:var(--acc)">▸</span><span><b>Transitions:</b> לשפר מהירות מעבר בין מטרות — שם ההפרש לרמות גבוהות יותר.</span></div>
+      </div></div>
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('ai2')"><span style="font-size:18px">🌍</span><span class="ins-title" style="color:var(--pur)">השוואה לפרו</span><span class="ch-arrow">›</span></div><div class="ins-body" id="ai2">
+        <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>דיוק Master-Level:</b> 95% A-zone בתחרות ראשונה — זה נדיר. יורי Master מגיעים ל-88-92% עם פקטור 9+.</span></div>
+        <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>הפוטנציאל ענק:</b> עם הדיוק הזה ושיפור מהירות ב-10-15% — עדי יכולה להגיע ל-80%+ בשנה.</span></div>
+        <div class="ins-item"><span style="color:var(--pur)">▸</span><span><b>Accuracy-first strategy:</b> המשך בגישה הנוכחית — אל תוותרי על הדיוק. הוסיפי מהירות בהדרגה.</span></div>
+      </div></div>
+      <div class="ins-card"><div class="ins-head" onclick="toggleIns('ai3')"><span style="font-size:18px">🏋️</span><span class="ins-title" style="color:var(--grn)">תרגילים</span><span class="ch-arrow">›</span></div><div class="ins-body" id="ai3">
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Bill Drill על מהירות:</b> 6 כדורים × מטרה A, מדוד Split Time. מטרה: 0.20 שנ' בין ירי.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Draw to First Shot:</b> Shot Timer — מצייד לירי ראשון. מטרה: מתחת ל-0.9 שנ'.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>Moving Stage:</b> Stage עם 3 תחנות תנועה — לאמן כניסה/יציאה מהירה ממיקום.</span></div>
+        <div class="ins-item"><span style="color:var(--grn)">▸</span><span><b>C-zone Drill:</b> לתרגל ירי על C-zone במהירות מקסימלית — לשחרר את "חיוב A-zone".</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section page-section" id="adi-table">
+    <div class="sec-label">טבלה</div>
+    <div class="table-wrap"><table class="comp-table">
+      <thead><tr><th>תאריך</th><th>תחרות</th><th>אופטיקס</th><th>קטגוריה</th><th>ניקוד</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(232,200,74,.04)"><td class="mono" style="color:var(--acc);font-size:10px;font-weight:700">15.05</td><td style="font-size:11px;color:var(--acc);font-weight:700">ברוך קידר ✨ חדש</td><td><div class="bar-w"><div class="bar-f" style="width:70%;background:var(--grn)"></div></div><span class="mono" style="color:var(--grn);font-size:10px;font-weight:700">69.8%</span></td><td><span class="badge bg">#5</span></td><td class="mono" style="font-size:10px;color:var(--grn);font-weight:700">276.4 🏆</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><!-- /page-adi -->
+
+
+
+<!-- ══════ BOTTOM NAV ══════ -->
+<nav class="bottom-nav">
+  <div class="shooter-strip">
+    <div class="s-pill active" id="pill-nir" onclick="switchShooter('nir')"><img class="avatar-circle" src="data:image/jpeg;base64,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" alt="ניר">בלושטיין ניר</div>
+    <div class="s-pill" id="pill-tomer" onclick="switchShooter('tomer')"><img class="avatar-circle" src="data:image/jpeg;base64,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" alt="תומר">תומר אפרתי</div>
+    <div class="s-pill" id="pill-uriel" onclick="switchShooter('uriel')"><img class="avatar-circle" src="data:image/jpeg;base64,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" alt="אוריאל">אוריאל לבנשוס</div>
+    <div class="s-pill" id="pill-lee" onclick="switchShooter('lee')"><img class="avatar-circle" src="data:image/jpeg;base64,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" alt="לי">לי יצקן</div>
+    <div class="s-pill" id="pill-adi" onclick="switchShooter('adi')"><img class="avatar-circle" src="data:image/jpeg;base64,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" alt="עדי">עדי מור</div>
+    </div>
+  <div class="section-nav" id="sec-nav">
+    <button class="nav-btn active" id="nb0"><span class="nav-icon">📊</span><span class="nav-lbl">סיכום</span></button>
+    <button class="nav-btn" id="nb1"><span class="nav-icon">📈</span><span class="nav-lbl">גרפים</span></button>
+    <button class="nav-btn" id="nb2"><span class="nav-icon">🎯</span><span class="nav-lbl">תחרויות</span></button>
+    <button class="nav-btn" id="nb3"><span class="nav-icon">💡</span><span class="nav-lbl">תובנות</span></button>
+    <button class="nav-btn" id="nb4"><span class="nav-icon">📋</span><span class="nav-lbl">טבלה</span></button>
+  </div>
+</nav>
+
+
+<script>
+const SHOOTERS = {
+  nir:   { name:'🎯 ניר בלושטיין', sub:'IL|38308 · אופטיקס / סניור',
+           secs:['nir-summary','nir-charts','nir-comps','nir-insights','nir-table'] },
+  tomer: { name:'🎯 תומר אפרתי',   sub:'פרודקשן אופטיקס / סניור',
+           secs:['tom-summary','tom-charts','tom-comps','tom-insights','tom-table'] },
+  uriel: { name:'🎯 אוריאל לבנשוס', sub:'פרודקשן אופטיקס / סניור',
+           secs:['uri-summary','uri-charts','uri-comps','uri-insights','uri-table'] },
+  lee:   { name:'🎯 לי יצקן', sub:'סטנדרט נשים',
+           secs:['lee-summary','lee-timeline','lee-comps','lee-insights','lee-table'] },
+  adi:   { name:'🎯 עדי מור', sub:'אופטיקס · כללי',
+           secs:['adi-summary','adi-timeline','adi-comps','adi-insights','adi-table'] }
+};
+let currentShooter = 'nir';
+
+function switchShooter(id) {
+  document.querySelectorAll('.shooter-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.s-pill').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('pill-'+id).classList.add('active');
+  const s = SHOOTERS[id];
+  document.getElementById('tb-name').textContent = s.name;
+  document.getElementById('tb-sub').textContent  = s.sub;
+  // Update nav buttons
+  const navBtns = document.querySelectorAll('.section-nav .nav-btn');
+  navBtns.forEach((btn,i) => {
+    btn.classList.toggle('active', i===0);
+    btn.onclick = () => { goTo(s.secs[i]); setActiveNav(i); };
+  });
+  currentShooter = id;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function goTo(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function setActiveNav(i) {
+  document.querySelectorAll('.section-nav .nav-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+}
+
+// Init nav clicks
+document.addEventListener('DOMContentLoaded', () => {
+  const s = SHOOTERS['nir'];
+  document.querySelectorAll('.section-nav .nav-btn').forEach((btn,i) => {
+    btn.onclick = () => { goTo(s.secs[i]); setActiveNav(i); };
+  });
+});
+
+function toggleComp(id){
+  const b=document.getElementById(id),h=document.getElementById('h-'+id);
+  if(!b||!h)return;
+  const o=b.classList.toggle('open');h.classList.toggle('open',o);
+}
+function toggleIns(id){
+  const b=document.getElementById(id);if(!b)return;
+  const o=b.classList.toggle('open');
+  const arr=b.previousElementSibling.querySelector('.ch-arrow');
+  if(arr)arr.style.transform=o?'rotate(90deg)':'';
+}
+
+// Scroll spy
+window.addEventListener('scroll',()=>{
+  const secs = SHOOTERS[currentShooter].secs;
+  let c=0;
+  secs.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<120)c=i});
+  document.querySelectorAll('.section-nav .nav-btn').forEach((b,i)=>b.classList.toggle('active',i===c));
+},{passive:true});
+
+/* ─── CHARTS ─── */
+document.addEventListener('DOMContentLoaded', function(){
+  const gr={color:'rgba(30,40,64,.5)',drawBorder:false};
+  const tk={color:'#68748e',font:{size:9,family:'JetBrains Mono'}};
+  const tp={backgroundColor:'#161b2e',borderColor:'#1e2840',borderWidth:1,titleColor:'#dde4f0',bodyColor:'#dde4f0'};
+  Chart.defaults.font={family:'Heebo,sans-serif'};
+
+  // ── NIR ──
+  const NL=['13.12','03.01','17.01','30.01','20.02','27.02','28.03','11.04','17.04','01.05','08.05'];
+  const NO=[0.7407,0.5863,0.6566,0.5622,0.5417,0.8241,0.6708,0.8618,0.6702,0.7189,0.7634];
+  const NAC=[0.91,0.88,0.96,0.89,0.91,0.93,0.91,0.94,0.90,0.91,0.87];
+  const NSP=[0.90,0.87,0.83,0.84,0.81,0.91,0.86,0.87,0.89,0.84,0.89];
+  const NRK=[4,4,8,10,9,1,7,1,4,3,7];
+  const NPT=[176.66,137.14,265.34,150.29,218.02,203.82,199.55,196.04,194.29,187.20,308.58];
+  const NtO=[0.6264,0.6392,0.6521,0.6649,0.6778,0.6906,0.7035,0.7163,0.7291,0.742,0.7548];
+  function pc(v){return v>=0.752?'#3ecf80':v>=0.67?'#e8c84a':'#4a9ee8'}
+
+  new Chart(document.getElementById('nir-cO'),{type:'line',data:{labels:NL,datasets:[
+    {label:'אופטיקס',data:NO,borderColor:'#e8c84a',backgroundColor:'rgba(232,200,74,.08)',borderWidth:2,pointRadius:4,pointBackgroundColor:NO.map(pc),pointBorderColor:'#080a0f',pointBorderWidth:2,tension:.35,fill:true},
+    {label:'מגמה',data:NtO,borderColor:'rgba(74,158,232,.4)',borderDash:[4,3],borderWidth:1.5,pointRadius:0}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.4,max:.95}}}});
+
+  new Chart(document.getElementById('nir-cAS'),{type:'line',data:{labels:NL,datasets:[
+    {label:'דיוק',data:NAC,borderColor:'#3ecf80',borderWidth:2,pointRadius:3,pointBackgroundColor:'#3ecf80',tension:.3},
+    {label:'מהירות',data:NSP,borderColor:'#4a9ee8',borderWidth:2,pointRadius:3,pointBackgroundColor:'#4a9ee8',tension:.3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#dde4f0',font:{size:10},boxWidth:10}},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.75,max:1}}}});
+
+  new Chart(document.getElementById('nir-cR'),{type:'bar',data:{labels:NL,datasets:[{data:NRK,backgroundColor:NRK.map(r=>r<=2?'rgba(62,207,128,.75)':r<=5?'rgba(232,200,74,.7)':'rgba(74,158,232,.55)'),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{reverse:true,grid:gr,ticks:{...tk,callback:v=>'#'+v},min:0,max:12}}}});
+
+  new Chart(document.getElementById('nir-cP'),{type:'bar',data:{labels:NL,datasets:[{data:NPT,backgroundColor:NPT.map(v=>v>=250?'rgba(62,207,128,.75)':v>=190?'rgba(232,200,74,.7)':'rgba(74,158,232,.6)'),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:tk}}}});
+
+  // ── TOMER ──
+  const TL=['11.04','01.05','08.05'];
+  const TO=[0.7521,0.6381,0.5038];
+  const TAC=[0.93,0.88,0.88];
+  const TSP=[0.83,0.81,0.79];
+  const TPT=[174.88,158.03,191.38];
+
+  new Chart(document.getElementById('tom-cO'),{type:'line',data:{labels:TL,datasets:[
+    {label:'פרו. אופטיקס',data:TO,borderColor:'#e8c84a',backgroundColor:'rgba(232,200,74,.08)',borderWidth:2.5,pointRadius:6,pointBackgroundColor:TO.map(v=>v>=0.7?'#3ecf80':v>=0.6?'#e8c84a':'#f05252'),pointBorderColor:'#080a0f',pointBorderWidth:2,tension:.3,fill:true}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.4,max:.85}}}});
+
+  new Chart(document.getElementById('tom-cAS'),{type:'line',data:{labels:TL,datasets:[
+    {label:'דיוק',data:TAC,borderColor:'#3ecf80',borderWidth:2,pointRadius:5,pointBackgroundColor:'#3ecf80',tension:.3},
+    {label:'מהירות',data:TSP,borderColor:'#4a9ee8',borderWidth:2,pointRadius:5,pointBackgroundColor:'#4a9ee8',tension:.3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#dde4f0',font:{size:10},boxWidth:10}},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.75,max:1}}}});
+
+  new Chart(document.getElementById('tom-cP'),{type:'bar',data:{labels:TL,datasets:[{data:TPT,backgroundColor:['rgba(62,207,128,.7)','rgba(74,158,232,.6)','rgba(232,200,74,.7)'],borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:tk}}}});
+
+  // ── URIEL ──
+  const UL=['11.04','01.05','08.05'];
+  const UO=[0.7169,0.6167,null];
+  const UAC=[0.92,0.90,0.95];
+  const USP=[0.81,0.76,0.79];
+  const UPT=[166.18,151.00,249.06];
+
+  new Chart(document.getElementById('uri-cO'),{type:'line',data:{labels:['11.04','01.05'],datasets:[
+    {label:'פרו. אופטיקס',data:[0.7169,0.6167],borderColor:'#a78bfa',backgroundColor:'rgba(167,139,250,.08)',borderWidth:2.5,pointRadius:6,pointBackgroundColor:['#3ecf80','#e8c84a'],pointBorderColor:'#080a0f',pointBorderWidth:2,tension:.3,fill:true}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tp,callbacks:{afterBody:()=>['ליגה 4: אין נתון אופטיקס']}}},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.4,max:.85}}}});
+
+  new Chart(document.getElementById('uri-cAS'),{type:'line',data:{labels:UL,datasets:[
+    {label:'דיוק',data:UAC,borderColor:'#3ecf80',borderWidth:2,pointRadius:5,pointBackgroundColor:'#3ecf80',tension:.3},
+    {label:'מהירות',data:USP,borderColor:'#4a9ee8',borderWidth:2,pointRadius:5,pointBackgroundColor:'#4a9ee8',tension:.3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,labels:{color:'#dde4f0',font:{size:10},boxWidth:10}},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:{...tk,callback:v=>(v*100).toFixed(0)+'%'},min:.7,max:1}}}});
+
+  new Chart(document.getElementById('uri-cP'),{type:'bar',data:{labels:UL,datasets:[{data:UPT,backgroundColor:['rgba(74,158,232,.6)','rgba(74,158,232,.6)','rgba(62,207,128,.75)'],borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tp},scales:{x:{grid:gr,ticks:tk},y:{grid:gr,ticks:tk}}}});
+});
+</script>
+</body>
+</html>
